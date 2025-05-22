@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { getEstudiantes } from '../../../api/estudiantes.api';
 
 const TablaEstudiantes = () => {
   const [estudiantes, setEstudiantes] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const res = axios.get('http://localhost:8000/estudiantes/')
-    axios.get('http://localhost:8000/estudiantes/')
-      .then(response => {
-        setEstudiantes(response.data);
-        console.log(response.data);
-        
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error al cargar estudiantes:', error);
-        setLoading(false);
-      });
+    async function cargandoEstudiantes(){
+      const res = await getEstudiantes()
+      console.log(res)
+      setEstudiantes(res.data)
+    }
+    cargandoEstudiantes()
   }, []);
-
-  if (loading) return <p>Cargando estudiantes...</p>;
 
   return (
     <div>
