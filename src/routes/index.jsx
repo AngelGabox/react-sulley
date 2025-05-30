@@ -1,18 +1,19 @@
 import React from 'react'
 import { Route, Routes} from 'react-router-dom'
-import TablaEstudiantes from '../components/pure/TablaEstudiantes/TablaEstudiantes'
+import TablaEstudiantes from '../components/container/TablaEstudiantes/TablaEstudiantes'
 import Admin from '../components/views/Admin/Admin'
 import MenuAdmin from '../components/container/Menu/MenuAdmin'
+import Login from '../components/views/Login/Login'
 
 const index = () => {
   return (
-    <div className="app">
-      
+    <>
       <Routes>
+        <Route path='/login' element={<Login></Login>}></Route>
           <Route path='/estudiantes' element={<TablaEstudiantes/>} />
-          <Route exact path='/admin' element={<Admin/>} />
+          <Route path='/admin' element={<Admin/>} />
       </Routes>
-    </div>  
+    </>  
   )
 }
 

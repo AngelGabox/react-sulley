@@ -1,27 +1,30 @@
-import React from 'react';
-import MenuAdmin from "../../container/Menu/MenuAdmin";
+// src/pages/Admin.jsx
+import React, { useState } from 'react';
+import MenuAdmin from '../../container/Menu/MenuAdmin';
+import TablaEstudiantes from '../../container/TablaEstudiantes/TablaEstudiantes';
+import TablaPersonas from '../../container/TablaPersonas/TablaPersonas';
+import "./Admin.css"
 
-import './Admin.css'; // Assuming you have some styles for the Admin component
-import TablaEstudiantes from '../../pure/TablaEstudiantes/TablaEstudiantes'
+const Admin = () => {
+  const [view, setView] = useState('estudiantes');
 
- const Admin = () => {
-  const [view, setView] = React.useState('estudiantes')
+  const renderView = () => {
+    switch (view) {
+      case 'estudiantes':
+        return <TablaEstudiantes />;
+      case 'personas':
+        return <TablaPersonas />;
+      default:
+        return <p>Seleccione una opción del menú</p>;
+    }
+  };
 
-  
   return (
+    <div className="admin-layout">
+      <MenuAdmin setView={setView} currentView={view} />
+      <div className="admin-content">{renderView()}</div>
+    </div>
+  );
+};
 
-     <div className="admin">
-       <h1>Admin Dashboard</h1>
-       <p>Welcome to the admin dashboard. Here you can manage users, settings, and more.</p>
-       {/* Add more admin functionalities here */}
-       <MenuAdmin setterView={setView} view={view} />
-       { view === 'estudiantes'?
-          <TablaEstudiantes />:
-          view === 'profesores'?
-          <TablaEstudiantes />: 'nada'
-       }
-
-     </div>
-   );
- }
- export default Admin;
+export default Admin;

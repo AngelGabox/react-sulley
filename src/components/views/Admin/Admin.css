@@ -1,40 +1,14 @@
-/* src/components/MenuAdmin.css */
-
-.sidebar {
-  width: 220px;
-  background-color: #0c3d2f;
-  color: white;
-  height: 100vh;
-  padding: 20px;
+.admin-layout {
+  display: grid;
+  grid-template-columns: 2fr 10fr; 
+  height: 100vh; /* Ocupa toda la altura de la pantalla */
+  grid-template-areas: 
+    "menu content";
 }
-
-.sidebar-title {
-  margin-bottom: 20px;
-  font-size: 20px;
-  border-bottom: 1px solid #ffffff33;
-  padding-bottom: 10px;
-}
-
-.nav-menu {
-  display: flex;
-  flex-direction: column;
-}
-
-.nav-link {
-  color: white;
-  text-decoration: none;
-  padding: 10px 5px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border-radius: 4px;
-  transition: background 0.3s;
-}
-
-.nav-link:hover {
-  background-color: #155a46;
-}
-
-.nav-link.active {
-  background-color: #1f7a5c;
+.admin-content {
+  grid-area: content;
+  padding: 2rem;
+  background-color: #f8fafc; /* gris claro */
+  overflow-y: auto;
+  box-sizing: border-box;
 }

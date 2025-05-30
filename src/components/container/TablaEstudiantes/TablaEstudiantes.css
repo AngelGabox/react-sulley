@@ -1,0 +1,52 @@
+.table-container {
+  border: 4px solid var(--blue);
+  border-radius: 5px;
+  overflow: auto;
+}
+.btn-buscar {
+  background-color: var(--blue);
+  color: white;
+}
+.btn-agregar {
+  background-color: var(--blue);
+  color: white;
+}
+.icon-style {
+  font-size: 18px;
+}
+
+.datagrid {
+  font: 14px Arial, sans-serif;
+  background: #fff;
+  overflow: hidden;
+  border: 1px solid #006699;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.datagrid table {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: left;
+}
+
+.datagrid th,
+.datagrid td {
+  padding: 10px;
+  border-bottom: 1px solid #e1eef4;
+}
+
+.datagrid thead th {
+  background: linear-gradient(to bottom, #00a7b3, #000000);
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.datagrid tbody tr:nth-child(even) {
+  background-color: #e1eef4;
+}
+
+.datagrid tbody td {
+  color: #00557f;
+}

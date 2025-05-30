@@ -1,0 +1,54 @@
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setEstudiantes } from '../../../features/students/studentSlice';
+import { useGetStudentsQuery } from '../../../features/students/studentApi';
+import "./TablaEstudiantes.css"
+
+const TablaEstudiantes = () => {
+  const dispatch = useDispatch()
+  // console.log(useGetStudentsQuery());
+  const estudiantes = useSelector(s=>s.student.estudiantes)
+  const { data, isSuccess, isLoading, isError } = useGetStudentsQuery();
+  
+ useEffect(() => {
+    if (isSuccess && estudiantes.length === 0) {
+      dispatch(setEstudiantes(data));
+    }
+  }, [isSuccess, data, dispatch, estudiantes.length]);
+
+  if (isLoading) return <p>Cargando estudiantes...</p>;
+  if (isError) return <p>Error al cargar estudiantes</p>;
+
+  return (
+    <div className="table-container">
+  <h2>Listado de Estudiantes</h2>
+  <div className="datagrid">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Correo</th>
+          <th>Curso</th>
+        </tr>
+      </thead>
+      <tbody>
+        {estudiantes.map(est => (
+          <tr key={est.id_estudiante}>
+            <td>{est.id_estudiante}</td>
+            <td>{est.nombre}</td>
+            <td>{est.apellido}</td>
+            <td>{est.correo_electronico}</td>
+            <td>{est.curso}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+  );
+};
+
+export default TablaEstudiantes;

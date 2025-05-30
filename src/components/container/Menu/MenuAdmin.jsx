@@ -3,33 +3,24 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './MenuAdmin.css'; // Importa el CSS
 
-const MenuAdmin = ({setterView, view}) => {
-
-  const handleViewChange = (newView) => {
-    setterView(newView);
-  }
+const MenuAdmin = ({ setView, currentView }) => {
   return (
-    <aside className="sidebar">
-      <h3 className="sidebar-title">Menú Principal</h3>
-      <nav className="nav-menu">
-        <NavLink to="/admin" className="nav-link">
-          <i className="fas fa-home" onClick={()=>handleViewChange("home")}></i> Inicio
-        </NavLink>
-        <NavLink to="/admin/estudiantes" className="nav-link">
-          <i className="fas fa-users" onClick={()=>handleViewChange("estudiantes")}></i> Estudiantes
-        </NavLink>
-        <NavLink to="/admin/actividades" onClick={()=>handleViewChange("actividades")} className="nav-link">
-          <i className="fas fa-calendar-alt"></i> Actividades
-        </NavLink>
-        <NavLink to="/admin/acudientes" className="nav-link">
-          <i className="fas fa-user" onClick={()=>handleViewChange("personas")} ></i> Acudientes y Profesores
-        </NavLink>
-        <NavLink to="/login" className="nav-link">
-          <i className="fas fa-sign-out-alt"></i> Cerrar sesión
-        </NavLink>
-      </nav>
+    <aside className="admin-menu">
+      <h3>Menú</h3>
+      <ul>
+        <li onClick={() => setView('estudiantes')} className={currentView === 'estudiantes' ? 'active' : ''}>
+          Estudiantes
+        </li>
+        <li onClick={() => setView('profesores')} className={currentView === 'profesores' ? 'active' : ''}>
+          Profesores
+        </li>
+        <li onClick={() => setView('cursos')} className={currentView === 'cursos' ? 'active' : ''}>
+          Cursos
+        </li>
+      </ul>
     </aside>
   );
 };
+
 
 export default MenuAdmin;
