@@ -4,6 +4,7 @@ import MenuAdmin from '../../container/Menu/MenuAdmin';
 import TablaEstudiantes from '../../container/TablaEstudiantes/TablaEstudiantes';
 import TablaPersonas from '../../container/TablaPersonas/TablaPersonas';
 import "./Admin.css"
+import CreateStudentForm from '../../forms/CreateStudentForm/CreateStudentForm';
 
 const Admin = () => {
   const [view, setView] = useState('estudiantes');
@@ -11,9 +12,15 @@ const Admin = () => {
   const renderView = () => {
     switch (view) {
       case 'estudiantes':
-        return <TablaEstudiantes />;
+        return <>
+                    <TablaEstudiantes />
+                    <CreateStudentForm/>;
+                  </>
       case 'personas':
-        return <TablaPersonas />;
+        return <>
+                    <TablaPersonas />;
+                    <CreatePerson/>
+                  </>
       default:
         return <p>Seleccione una opción del menú</p>;
     }
