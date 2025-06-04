@@ -1,12 +1,10 @@
 .admin-layout {
-  display: grid;
-  grid-template-columns: 2fr 10fr; 
+  display: flex;
   height: 100vh; /* Ocupa toda la altura de la pantalla */
-  grid-template-areas: 
-    "menu content";
+  width: 100%; 
 }
 .admin-content {
-  grid-area: content;
+  width: 80vw;
   padding: 2rem;
   background-color: #f8fafc; /* gris claro */
   overflow-y: auto;

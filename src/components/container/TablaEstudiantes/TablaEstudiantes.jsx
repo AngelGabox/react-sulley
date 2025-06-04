@@ -20,10 +20,9 @@ const TablaEstudiantes = () => {
   if (isError) return <p>Error al cargar estudiantes</p>;
 
   return (
-    <div className="table-container">
+  <div className="student">
   <h2>Listado de Estudiantes</h2>
-  <div className="datagrid">
-    <table>
+    <table className='content-table'>
       <thead>
         <tr>
           <th>ID</th>
@@ -46,8 +45,6 @@ const TablaEstudiantes = () => {
       </tbody>
     </table>
   </div>
-</div>
-
   );
 };
 

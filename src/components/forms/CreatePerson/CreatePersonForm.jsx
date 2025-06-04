@@ -1,4 +1,5 @@
 import React from 'react'
+import  '../CreatePerson.css';
 
 const CreatePersonForm = () => {
   return (

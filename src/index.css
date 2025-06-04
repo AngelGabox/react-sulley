@@ -1,11 +1,32 @@
 :root{
-    --dark-blue: #101d38;
-    --blue: #142f69;
+  --black: #090909;
+  --white: #fefefe;
+  --green: #4aff4a;
+  --light-grey: #faf0fa;
+
+  /* blue */
+  --light-blue: #94ddf5;
+  --dark-blue: #101d38;
+  --blue: #142f69;
+  --blue: #29b9e9;
+  --blue-ocean: #00759c;
+
+  --green-swamp: #255f4c;
+  --menu: #5ffad8;
+  --warning: #ff421c;
+  --bg-one: #dfe8e7;
+  --input: #befafb;
+  --border-radius: 10px;
+  --border-radius-circle: 50%;
 }
 *{
   box-sizing: content-box;
   margin: 0;
   padding: 0;
+}
+html{
+  font-size: 62.5%;
+  font-family: 'Poppins', sans-serif  ;
 }
 #root {
   min-height: 100vh;

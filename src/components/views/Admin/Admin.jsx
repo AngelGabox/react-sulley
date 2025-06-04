@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import MenuAdmin from '../../container/Menu/MenuAdmin';
 import TablaEstudiantes from '../../container/TablaEstudiantes/TablaEstudiantes';
 import TablaPersonas from '../../container/TablaPersonas/TablaPersonas';
-import "./Admin.css"
 import CreateStudentForm from '../../forms/CreateStudentForm/CreateStudentForm';
+import "./Admin.css"
 
 const Admin = () => {
   const [view, setView] = useState('estudiantes');
@@ -22,7 +22,7 @@ const Admin = () => {
                     <CreatePerson/>
                   </>
       default:
-        return <p>Seleccione una opción del menú</p>;
+        return <p>Seleccione una opción del menú</p>
     }
   };
 
