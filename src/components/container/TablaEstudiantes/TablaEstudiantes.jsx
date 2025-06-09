@@ -29,17 +29,29 @@ const TablaEstudiantes = () => {
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Correo</th>
+          <th>Direccion</th>
+          <th>Fecha Nacimiento</th>
           <th>Curso</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
+        {console.log(estudiantes)}
         {estudiantes.map(est => (
           <tr key={est.id_estudiante}>
             <td>{est.id_estudiante}</td>
             <td>{est.nombre}</td>
             <td>{est.apellido}</td>
             <td>{est.correo_electronico}</td>
+            <td>{est.direccion}</td>
+            <td>{est.fecha_nacimiento}</td>
             <td>{est.curso}</td>
+            <td>
+              <div class="btn-group">
+                  <a href="#" class="btn"><i class="fas fa-edit"></i></a>
+                  <a href="#" class="btn"><i class="fas fa-trash"></i></a>
+               </div>
+            </td>
           </tr>
         ))}
       </tbody>

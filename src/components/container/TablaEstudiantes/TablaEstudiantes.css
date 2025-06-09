@@ -1,8 +1,20 @@
-.content-table {
-  border: 4px solid var(--blue);
-  border-radius: 5px;
-  overflow: auto;
+
+.student {
+  padding: 20px;
+  background-color: #fffbe2;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+.student h2 {
+  color: #1A3258;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+
+
+
 .btn-buscar {
   background-color: var(--blue);
   color: white;
@@ -11,42 +23,78 @@
   background-color: var(--blue);
   color: white;
 }
+
 .icon-style {
   font-size: 18px;
 }
 
-.datagrid {
-  font: 14px Arial, sans-serif;
-  background: #fff;
-  overflow: hidden;
-  border: 1px solid #006699;
-  border-radius: 4px;
-  width: 100%;
-}
 
-.datagrid table {
+.content-table { 
+  width: 100%;
+  border: 4px solid var(--blue);
+  border-radius: 5px;
+  overflow: auto;
   border-collapse: collapse;
-  width: 100%;
+  font-size: 15px;
   text-align: left;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.datagrid th,
-.datagrid td {
-  padding: 10px;
+  
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
   border-bottom: 1px solid #e1eef4;
 }
 
-.datagrid thead th {
-  background: linear-gradient(to bottom, #00a7b3, #000000);
+.content-table thead th {
+  background: var(--blue);
   color: white;
   font-weight: bold;
   font-size: 15px;
 }
 
-.datagrid tbody tr:nth-child(even) {
-  background-color: #e1eef4;
+.content-table tbody tr:hover, .content-table tbody tr:hover td{
+  background-color: #eaf9ff;
+  /* color: #fff; */
 }
 
-.datagrid tbody td {
+.content-table tbody td {
   color: #00557f;
+}
+
+.btn-group {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.btn-group > .btn {
+  position: relative;
+  flex: 1 1 auto;
+  margin-left: -1px;
+  padding: 15px;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.btn-group > .btn:first-child {
+  margin-left: 0;
+  background-color: #1A3258;
+}
+
+.btn-group > .btn:last-child {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  background-color: #ff0000;
+}
+
+.btn-group > .btn:not(:last-child) {
+  border-right: 1px solid #fff;
+}
+
+.btn i {
+  color: #fff;
 }

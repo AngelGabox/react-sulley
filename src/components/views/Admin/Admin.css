@@ -5,7 +5,6 @@
 }
 .admin-content {
   width: 80vw;
-  padding: 2rem;
   background-color: #f8fafc; /* gris claro */
   overflow-y: auto;
   box-sizing: border-box;

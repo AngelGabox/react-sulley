@@ -48,7 +48,7 @@ const CreateStudentForm = () => {
   // };
 
   const onSubmit = (e) => {
-    const { nombre, apellido, fecha_nacimiento, direccion, telefono, correo_electronico, nivel_academico,id_curso } = values;
+    const values = { nombre, apellido, fecha_nacimiento, direccion, telefono, correo_electronico, nivel_academico,id_curso } ;
   
     if (nombre && apellido && fecha_nacimiento && direccion && telefono && correo_electronico && nivel_academico && id_curso ) {
       try {
@@ -78,10 +78,14 @@ const CreateStudentForm = () => {
               name="nombre"
               value={values.nombre} 
               onChange={handleChange} 
-              required={values.nombre?"":"required"} />
+              // required={values.nombre?"":"required"} 
+              required
+              />
             <span>Nombre*</span>
             <i></i>
           </div>
+            {errors.nombre && touched.nombre && (<div className='error'>{errors.nombre}</div>)}
+           { errors.nombre && touched.nombre ?(<div className='error'>{errors.nombre}</div>):(<></>)}
         </div>
 
         <div className="container_box">
@@ -95,6 +99,7 @@ const CreateStudentForm = () => {
             <span>Apellido*</span>
             <i></i>
           </div>
+          {errors.apellido && touched.apellido && (<div className='error'>{errors.apellido}</div>)}
         </div>
 
         <div className="container_box">
@@ -107,6 +112,7 @@ const CreateStudentForm = () => {
             <span>Fecha de Nacimiento*</span>
             <i></i>
           </div>
+          {errors.fecha_nacimiento && touched.fecha_nacimiento && (<div className='error'>{errors.fecha_nacimiento}</div>)}
         </div>
 
         <div className="container_box">
@@ -116,11 +122,12 @@ const CreateStudentForm = () => {
               name="direccion" 
               value={values.direccion} 
               onChange={handleChange} 
-              // required={values.direccion?"":"required"}
-               required/>
+              required={values.direccion?"":"required"}
+              />
             <span>Dirección</span>
             <i></i>
           </div>
+          {/* {errors.direccion && touched.direccion && (<div className='error'></div>) */}
         </div>
 
         <div className="container_box">
@@ -144,7 +151,8 @@ const CreateStudentForm = () => {
               name="correo_electronico" 
               value={values.correo_electronico} 
               onChange={handleChange} 
-              required/>
+              required={values.correo_electronico?"":"required"}
+              />
             <span>Correo Electrónico</span>
             <i></i>
           </div>
