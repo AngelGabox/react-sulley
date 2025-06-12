@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEstudiantes } from '../../../features/students/studentSlice';
-import { useGetStudentsQuery } from '../../../features/students/studentApi';
+import { useDeleteStudentMutation, useGetStudentsQuery, useUpdateStudentMutation } from '../../../features/students/studentApi';
 import "./TablaEstudiantes.css"
 
-const TablaEstudiantes = () => {
+const TablaEstudiantes = ({handleEdit}) => {
   const dispatch = useDispatch()
   // console.log(useGetStudentsQuery());
   const estudiantes = useSelector(s=>s.student.estudiantes)
   const { data, isSuccess, isLoading, isError } = useGetStudentsQuery();
-  
+  // const useStudents = useGetStudentsQuery();
+  const [ updateStudent ]= useUpdateStudentMutation()
+  const [ deleteStudent ] = useDeleteStudentMutation()
+
+
  useEffect(() => {
     if (isSuccess && estudiantes.length === 0) {
       dispatch(setEstudiantes(data));
@@ -18,6 +22,10 @@ const TablaEstudiantes = () => {
 
   if (isLoading) return <p>Cargando estudiantes...</p>;
   if (isError) return <p>Error al cargar estudiantes</p>;
+
+  const handleDelete = (id) => {
+     deleteStudent(id)
+  }
 
   return (
   <div className="student">
@@ -47,9 +55,9 @@ const TablaEstudiantes = () => {
             <td>{est.fecha_nacimiento}</td>
             <td>{est.curso}</td>
             <td>
-              <div class="btn-group">
-                  <a href="#" class="btn"><i class="fas fa-edit"></i></a>
-                  <a href="#" class="btn"><i class="fas fa-trash"></i></a>
+              <div className="btn-group">
+                  <a href="#" className="btn" onClick={()=>handleEdit(est)}><i className="fas fa-edit"></i></a>
+                  <a href="#" className="btn" onClick={()=>handleDelete(est.id_estudiante)} ><i className="fas fa-trash"></i></a>
                </div>
             </td>
           </tr>

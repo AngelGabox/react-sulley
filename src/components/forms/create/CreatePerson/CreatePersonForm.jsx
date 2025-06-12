@@ -1,5 +1,5 @@
 import React from 'react'
-import  '../CreatePerson.css';
+import  '../../GeneralForm.css';
 
 const CreatePersonForm = () => {
   return (

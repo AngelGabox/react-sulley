@@ -56,3 +56,15 @@ export const {
   useUpdateStudentMutation,
   useDeleteStudentMutation,
 } = studentApi;
+
+// | Variable     | Tipo      | ¿Para qué sirve?                                                             |
+// | ------------ | --------- | ---------------------------------------------------------------------------- |
+// | `data`       | cualquier | Contiene los datos que devuelve tu endpoint (`estudiantes/`).                |
+// | `error`      | objeto    | Contiene información del error si la petición falla.                         |
+// | `isLoading`  | boolean   | `true` la **primera vez** que se ejecuta la petición.                        |
+// | `isFetching` | boolean   | `true` mientras se está **realizando la petición**, incluso si ya hay caché. |
+// | `isSuccess`  | boolean   | `true` si la petición fue exitosa.                                           |
+// | `isError`    | boolean   | `true` si ocurrió un error en la petición.                                   |
+// | `refetch`    | función   | Puedes usarla para **volver a hacer** la petición manualmente.               |
+// | `status`     | string    | Puede ser: `'pending'`, `'fulfilled'`, o `'rejected'`.                       |
+ 

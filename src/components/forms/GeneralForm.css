@@ -1,4 +1,4 @@
-.create-form {
+/* .create-form {
     width: 100%;
     height: 100%;
     min-width: 30rem;
@@ -7,7 +7,7 @@
     display: flex;
     justify-content: center;
     align-items: center ;
- }
+ } */
 .form--title{
     font-size: 2rem;
     font-weight: 700;
@@ -63,6 +63,10 @@
     transform:  translateX(-8px) translateY(-30px);
     font-size: 0.85em;
 }
+.focused > span{
+    transform:  translateX(-8px) translateY(-30px);
+    font-size: 0.85em;
+}
 .container--input i{
     position: absolute;
     left: 0;
@@ -98,3 +102,6 @@ button{
     /* color: var(--warning); */
     color: tomato;
  } 
+ .focused > i {
+    height: 44px;
+ }
