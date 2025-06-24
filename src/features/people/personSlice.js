@@ -26,10 +26,9 @@ const peopleSlice = createSlice({
 });
 
 export const {
-  setEstudiantes,
+  setPeople,
   toggleModal,
-  setEstudianteSeleccionado,
-  setFiltroCurso,
+  setSelectedPerson,
 } = peopleSlice.actions;
 
 export default peopleSlice.reducer;

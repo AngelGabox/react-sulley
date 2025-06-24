@@ -23,7 +23,7 @@ export const personApi = api.injectEndpoints({
         method: 'POST',
         body: newPerson,
       }),
-      invalidatesTags: ['Peonle'],
+      invalidatesTags: ['People'],
     }),
 
     // Actualizar persona
@@ -55,4 +55,4 @@ export const {
   useCreatePersonMutation,
   useUpdatePersonMutation,
   useDeletePersonMutation,
-} = studentApi;
+} = personApi;

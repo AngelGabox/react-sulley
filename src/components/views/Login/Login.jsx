@@ -1,15 +1,16 @@
 // src/components/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useLoginUserMutation } from '../../../features/user/userApi';
+import { setUser } from '../../../features/user/userSlice';
 import './login.css';
 
 const Login = () => {
-  const [form, setForm] = useState({
-    nombre_usuario: '',
-    contrasena: '',
-  });
-
+  const [form, setForm] = useState({ email: '', password: '' });
+  const [login, { isLoading }] = useLoginUserMutation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setForm({
@@ -18,17 +19,31 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // Aquí podrías hacer la petición a la API (ej: axios.post(...))
-    if (form.nombre_usuario && form.contrasena) {
-      console.log('Usuario:', form.nombre_usuario);
-      navigate('/admin/estudiantes'); // Redirige a Estudiantes
-    } else {
-      alert('Por favor completa todos los campos');
+  if (form.email && form.password) {
+    try {
+      const response = await login(form).unwrap();
+      const userData = response.usuario;
+
+      // Guarda los datos del usuario en Redux
+      dispatch(setUser(userData));
+
+      // Guarda en sessionStorage y localStorage para persistencia
+      sessionStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem('user', userData.ID_Usuario); // o el campo que represente el ID único
+
+      navigate('/admin/');
+    } catch (error) {
+      alert('Credenciales incorrectas o usuario no encontrado');
+      console.error(error);
     }
-  };
+  } else {
+    alert('Por favor completa todos los campos');
+  }
+};
+
 
   return (
     <div className="login-wrapper">
@@ -40,27 +55,29 @@ const Login = () => {
 
       <div className="login-container">
         <h2>Iniciar Sesión</h2>
-        
         <form onSubmit={handleSubmit}>
-          <label htmlFor="nombre_usuario">Nombre de Usuario:</label>
+          <label htmlFor="email">Correo Electrónico:</label>
           <input
-            type="text"
-            name="nombre_usuario"
-            id="nombre_usuario"
-            value={form.nombre_usuario}
+            type="email"
+            name="email"
+            id="email"
+            value={form.email}
             onChange={handleChange}
-          />
+            autoComplete='true'
+                     />
 
-          <label htmlFor="contrasena">Contraseña:</label>
+          <label htmlFor="password">Contraseña:</label>
           <input
             type="password"
-            name="contrasena"
-            id="contrasena"
-            value={form.contrasena}
+            name="password"
+            id="password"
+            value={form.password}
             onChange={handleChange}
           />
 
-          <button type="submit" className="boton-login">Iniciar Sesión</button>
+          <button type="submit" className="boton-login" disabled={isLoading}>
+            {isLoading ? 'Cargando...' : 'Iniciar Sesión'}
+          </button>
         </form>
 
         <p>¿No tienes una cuenta? <a href="/registro">Regístrate</a></p>
@@ -70,3 +87,4 @@ const Login = () => {
 };
 
 export default Login;
+
