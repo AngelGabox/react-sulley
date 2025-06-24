@@ -1,4 +1,4 @@
-import { useState } from 'react';
+  // import { useState } from 'react';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useCreateStudentMutation } from '../../../../features/students/studentApi'; 
@@ -47,7 +47,7 @@ const CreateStudentForm = () => {
   //   });
   // };
 
-  const onSubmit = async(e) => {
+  const onSubmit = async() => {
     const { nombre, apellido, fecha_nacimiento, direccion, telefono, correo_electronico, nivel_academico,id_curso } = values ;
   
     if (nombre && apellido && fecha_nacimiento && direccion && telefono && correo_electronico && nivel_academico && id_curso ) {

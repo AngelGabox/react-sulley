@@ -25,11 +25,11 @@ const peopleSlice = createSlice({
   },
 });
 
-// export const {
-//   setEstudiantes,
-//   toggleModal,
-//   setEstudianteSeleccionado,
-//   setFiltroCurso,
-// } = peopleSlice.actions;
+export const {
+  setEstudiantes,
+  toggleModal,
+  setEstudianteSeleccionado,
+  setFiltroCurso,
+} = peopleSlice.actions;
 
-// export default peopleSlice.reducer;
+export default peopleSlice.reducer;
