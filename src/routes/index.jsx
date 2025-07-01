@@ -2,11 +2,12 @@ import React from 'react'
 import { Route, Routes} from 'react-router-dom'
 import TablaEstudiantes from '../components/container/TablaEstudiantes/TablaEstudiantes'
 import Admin from '../components/views/Admin/Admin'
-import MenuAdmin from '../components/container/Menu/MenuAdmin'
+import MenuAdmin from '../components/container/Menu/MenuAdmin/MenuAdmin'
 import Login from '../components/views/Login/Login'
 import RequireAuth from '../hooks/RequireAutn'
-import ProfesorCrearClase from '../components/forms/create/ProfesorCrearClase/ProfesorCrearClase'
 import Home from "../components/views/Home/Home"
+
+import Profe  from '../components/views/Profe/Profe'
 
 const index = () => {
   return (
@@ -27,7 +28,7 @@ const index = () => {
               </RequireAuth>
             }
           /> */}
-            <Route path='/profe' element={<ProfesorCrearClase/>}/>
+            <Route path='/profe' element={<Profe/>}/>
       </Routes>
     </>  
   )

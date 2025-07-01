@@ -1,15 +1,18 @@
 // src/pages/Admin.jsx
 import React, { useState } from 'react';
 
+import MenuAdmin from '../../container/Menu/MenuAdmin/MenuAdmin';
+
 import StudentToolbar from '../../container/StudentToolBar/StudentToolBar';
-import MenuAdmin from '../../container/Menu/MenuAdmin';
 import TablaEstudiantes from '../../container/TablaEstudiantes/TablaEstudiantes';
-import TablaPersonas from '../../container/TablaPersonas/TablaPersonas';
 import CreateStudentForm from '../../forms/create/CreateStudentForm/CreateStudentForm';
-import CreatePerson from '../../forms/create/CreatePerson/CreatePersonForm'
-import "./Admin.css"
-import Modal from '../../container/Modal/Modal';
 import UpdateStudentForm from '../../forms/update/UpdateStudentForm/UpdateStudentForm';
+
+import TablaPersonas from '../../container/TablaPersonas/TablaPersonas';
+import CreatePerson from '../../forms/create/CreatePerson/CreatePersonForm'
+
+import Modal from '../../container/Modal/Modal';
+import "./Admin.css"
 
 const Admin = () => {
   // Ventana Modal reutilizanle
