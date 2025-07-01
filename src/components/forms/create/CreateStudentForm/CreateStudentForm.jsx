@@ -15,7 +15,7 @@ const CreateStudentForm = () => {
     telefono: '',
     correo_electronico: '',
     nivel_academico: '',
-    id_curso: ''
+    curso_id: ''
   }
   
   const required = "* Este campo es obligatorio";
@@ -48,11 +48,11 @@ const CreateStudentForm = () => {
   // };
 
   const onSubmit = async() => {
-    const { nombre, apellido, fecha_nacimiento, direccion, telefono, correo_electronico, nivel_academico,id_curso } = values ;
+    const { nombre, apellido, fecha_nacimiento, direccion, telefono, correo_electronico, nivel_academico, curso_id } = values ;
   
-    if (nombre && apellido && fecha_nacimiento && direccion && telefono && correo_electronico && nivel_academico && id_curso ) {
+    if (nombre && apellido && fecha_nacimiento && direccion && telefono && correo_electronico && nivel_academico &&  curso_id ) {
       try {
-        await createStudent(values).unwrap();
+        await createStudent({...values, curso: curso_id}).unwrap();
         alert('Estudiante creado con éxito');
       } catch (error) {
         alert('Error al crear estudiante');
@@ -75,7 +75,7 @@ const CreateStudentForm = () => {
     { name: "telefono", type: "text", label: "Teléfono*" },
     { name: "correo_electronico", type: "email", label: "Correo Electrónico*" },
     { name: "nivel_academico", type: "text", label: "Nivel Académico*" },
-    { name: "id_curso", type: "number", label: "ID del Curso*" }
+    { name: "curso_id", type: "number", label: "ID del Curso*" }
   ];
 
   return (

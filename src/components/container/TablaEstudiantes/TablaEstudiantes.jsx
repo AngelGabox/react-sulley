@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEstudiantes } from '../../../features/students/studentSlice';
-import { useDeleteStudentMutation, useGetStudentsQuery, useUpdateStudentMutation } from '../../../features/students/studentApi';
+import { useDeleteStudentMutation, useGetStudentsQuery } from '../../../features/students/studentApi';
 import "./TablaEstudiantes.css"
 
 const TablaEstudiantes = ({handleEdit}) => {
@@ -10,7 +10,6 @@ const TablaEstudiantes = ({handleEdit}) => {
   const estudiantes = useSelector(s=>s.student.estudiantes)
   const { data, isSuccess, isLoading, isError } = useGetStudentsQuery();
   // const useStudents = useGetStudentsQuery();
-  const [ updateStudent ]= useUpdateStudentMutation()
   const [ deleteStudent ] = useDeleteStudentMutation()
 
 
@@ -45,8 +44,8 @@ const handleDelete = (id) => {
       </thead>
       <tbody>
         {estudiantes.map(est => (
-          <tr key={est.id_estudiante}>
-            <td>{est.id_estudiante}</td>
+          <tr key={est.id}>
+            <td>{est.id}</td>
             <td>{est.nombre}</td>
             <td>{est.apellido}</td>
             <td>{est.correo_electronico}</td>

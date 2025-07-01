@@ -15,7 +15,7 @@ const UpdateStudentForm = ({ student }) => {
     telefono: student?.telefono || '',
     correo_electronico: student?.correo_electronico || '',
     nivel_academico: student?.nivel_academico || '',
-    id_curso: student?.id_curso || ''
+    curso: student?.curso|| ''
   };
 
   const required = "* Este campo es obligatorio";
@@ -28,12 +28,12 @@ const UpdateStudentForm = ({ student }) => {
     telefono: Yup.string().required(required),
     correo_electronico: Yup.string().email('Email inválido').required(required),
     nivel_academico: Yup.string().required(required),
-    id_curso: Yup.number().required(required),
+    curso: Yup.number().required(required),
   });
 
   const onSubmit = (values) => {
     try {
-      updateStudent({ id: student.id_estudiante, ...values }).unwrap();
+      updateStudent({ id: student.id, ...values }).unwrap();
       alert("Estudiante actualizado con éxito");
     } catch (error) {
       console.error("Error al actualizar estudiante:", error);
@@ -49,11 +49,11 @@ const UpdateStudentForm = ({ student }) => {
       <form className="form" onSubmit={handleSubmit}>
         <span className="form--title">Actualizar Estudiante</span>
 
-        {["nombre", "apellido", "fecha_nacimiento", "direccion", "telefono", "correo_electronico", "nivel_academico", "id_curso"].map((field, idx) => (
+        {["nombre", "apellido", "fecha_nacimiento", "direccion", "telefono", "correo_electronico", "nivel_academico", "curso"].map((field, idx) => (
           <div key={idx} className="container_box">
             <div className="container--input">
               <input
-                type={field === "fecha_nacimiento" ? "date" : field === "correo_electronico" ? "email" : field === "id_curso" ? "number" : "text"}
+                type={field === "fecha_nacimiento" ? "date" : field === "correo_electronico" ? "email" : field === "curso" ? "number" : "text"}
                 name={field}
                 value={values[field]}
                 onChange={handleChange}

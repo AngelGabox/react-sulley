@@ -5,7 +5,7 @@ export const userApi = api.injectEndpoints({
     // Login
     loginUser: builder.mutation({
       query: (credentials) => ({
-        url: 'usuarios/login/',  // Asegúrate que coincida con la URL de tu backend
+        url: 'usuarios/login',  // Asegúrate que coincida con la URL de tu backend
         method: 'POST',
         body: credentials,
       }),

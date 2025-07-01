@@ -7,79 +7,79 @@ import { setUser } from '../../../features/user/userSlice';
 import './login.css';
 
 const Login = () => {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ username: '', password: '' });
   const [login, { isLoading }] = useLoginUserMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  if (form.email && form.password) {
-    try {
-      const response = await login(form).unwrap();
-      const userData = response.usuario;
-
-      // Guarda los datos del usuario en Redux
-      dispatch(setUser(userData));
-
-      // Guarda en sessionStorage y localStorage para persistencia
-      sessionStorage.setItem('user', JSON.stringify(userData));
-      localStorage.setItem('user', userData.ID_Usuario); // o el campo que represente el ID único
-
-      navigate('/admin/');
-    } catch (error) {
-      alert('Credenciales incorrectas o usuario no encontrado');
-      console.error(error);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { username, password } = form;
+    if (!username || !password) {
+      return alert('Completa usuario y contraseña');
     }
-  } else {
-    alert('Por favor completa todos los campos');
-  }
-};
+    try {
+      const response = await login({ username, password }).unwrap();
+      const { access, refresh, usuario } = response;
 
+      // Guardar tokens
+      localStorage.setItem('access', access);
+      localStorage.setItem('refresh', refresh);
+
+      // Guardar datos de usuario
+      sessionStorage.setItem('user', JSON.stringify(usuario));
+      dispatch(setUser(usuario));
+
+      // Redirigir según rol
+      switch (usuario.rol) {
+        case 'Administrador': navigate('/admin/'); break;
+        case 'Profesor':      navigate('/profesor/'); break;
+        case 'Acudiente':     navigate('/acudiente/'); break;
+        default:              navigate('/');
+      }
+    } catch (err) {
+      alert('Credenciales incorrectas');
+      console.error(err);
+    }
+  };
 
   return (
     <div className="login-wrapper">
-      <button type="button" className="inicio" onClick={() => navigate('/')}>Inicio</button>
-
+      <button className="inicio" onClick={() => navigate('/')}>Inicio</button>
       <div className="logo">
         <img src="/imagenes/logo-jardin.png" alt="logo-jardin" />
       </div>
-
       <div className="login-container">
         <h2>Iniciar Sesión</h2>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Correo Electrónico:</label>
+          <label htmlFor="username">Usuario:</label>
           <input
-            type="email"
-            name="email"
-            id="email"
-            value={form.email}
+            type="text"
+            id="username"
+            name="username"
+            value={form.username}
             onChange={handleChange}
-            autoComplete='true'
-                     />
+            autoComplete="username"
+          />
 
           <label htmlFor="password">Contraseña:</label>
           <input
             type="password"
-            name="password"
             id="password"
+            name="password"
             value={form.password}
             onChange={handleChange}
+            autoComplete="current-password"
           />
 
           <button type="submit" className="boton-login" disabled={isLoading}>
             {isLoading ? 'Cargando...' : 'Iniciar Sesión'}
           </button>
         </form>
-
         <p>¿No tienes una cuenta? <a href="/registro">Regístrate</a></p>
       </div>
     </div>
@@ -87,4 +87,3 @@ const handleSubmit = async (e) => {
 };
 
 export default Login;
-
