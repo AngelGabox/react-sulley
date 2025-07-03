@@ -5,6 +5,7 @@ const initialState = {
   modalActivo: false,
   selectedPerson: null,
   people: [],
+  personasFiltradas: []
 };
 
 const peopleSlice = createSlice({
@@ -22,6 +23,13 @@ const peopleSlice = createSlice({
     setSelectedPerson: (state, action) => {
       state.selectedPerson = action.payload;
     },
+    // Filtrar estudiantes por nombre
+    filterByNamePerson: (state, action) => {
+      const term = action.payload.toLowerCase();
+      state.personasFiltradas = state.people.filter(s =>
+        s.nombre.toLowerCase().includes(term)
+      );
+    }
   },
 });
 
@@ -29,6 +37,8 @@ export const {
   setPeople,
   toggleModal,
   setSelectedPerson,
+  filterByNamePerson
+  
 } = peopleSlice.actions;
 
 export default peopleSlice.reducer;

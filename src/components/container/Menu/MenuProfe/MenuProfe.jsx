@@ -3,19 +3,19 @@ import "./MenuProfe.css"
 const MenuProfe = () => {
   return (
     <aside class="sidebar">
-      <div class="role">
-        <div class="icon"></div>
-        <h2>Profesor</h2>
+      <div class="profile">
+          <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Foto de perfil" class="profile-img"/>
+          <span>Profe Juan</span>
       </div>
       <nav>
-        <ul>
-          <li class="active"><a href="#cursos">📚 Ver cursos asignados</a></li>
-          <li><a href="#estudiantes">👥 Ver lista de estudiantes</a></li>
-          <li><a href="#asistencia-clases">📈 Asistencia y clases</a></li>
-          <li><a href="#actividades">📚 Actividades por curso</a></li>
-        </ul>
+          <ul>
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="cursos.html">Mis Cursos</a></li>
+              <li><a href="asistencia.html">Asistencia</a></li>
+              <li><a href="actividades.html">Actividades</a></li>
+              <li><a href="perfil.html">Perfil</a></li>
+          </ul>
       </nav>
-      <button class="logout">Cerrar sesión</button>
     </aside>
   )
 }

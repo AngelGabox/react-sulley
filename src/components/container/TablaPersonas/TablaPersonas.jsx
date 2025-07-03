@@ -7,6 +7,8 @@ import "./TablaPersonas.css";
 const TablaPersonas = ({ handleEdit }) => {
   const dispatch = useDispatch();
   const personas = useSelector(state => state.people.people);
+  const personasFiltradas = useSelector(state => state.people.personasFiltradas);
+
   const { data, isSuccess, isLoading, isError } = useGetPeopleQuery();
   const [deletePerson] = useDeletePersonMutation();
 
@@ -14,7 +16,7 @@ const TablaPersonas = ({ handleEdit }) => {
     if (isSuccess && personas.length === 0) {
       dispatch(setPeople(data));
     }
-  }, [isSuccess, data, dispatch, personas.length]);
+  }, [isSuccess, data, dispatch, personas.length, personasFiltradas.length]);
 
   if (isLoading) return <p>Cargando personas...</p>;
   if (isError) return <p>Error al cargar personas</p>;
@@ -22,6 +24,7 @@ const TablaPersonas = ({ handleEdit }) => {
   const handleDelete = (id) => {
     deletePerson(id);
   };
+
 
   return (
     <div className="persona">
@@ -39,7 +42,7 @@ const TablaPersonas = ({ handleEdit }) => {
           </tr>
         </thead>
         <tbody>
-          {personas.map(per => (
+          {(personasFiltradas.length>0?personasFiltradas:personas).map(per => (
             <tr key={per.id_persona}>
               <td>{per.id_persona}</td>
               <td>{per.nombre}</td>

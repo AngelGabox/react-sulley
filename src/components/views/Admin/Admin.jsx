@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import MenuAdmin from '../../container/Menu/MenuAdmin/MenuAdmin';
 
-import StudentToolbar from '../../container/StudentToolBar/StudentToolBar';
+import { StudentToolbar, PersonToolBar }from '../../container/StudentToolBar/StudentToolBar';
 import TablaEstudiantes from '../../container/TablaEstudiantes/TablaEstudiantes';
 import CreateStudentForm from '../../forms/create/CreateStudentForm/CreateStudentForm';
 import UpdateStudentForm from '../../forms/update/UpdateStudentForm/UpdateStudentForm';
@@ -55,8 +55,12 @@ const Admin = () => {
                   </>
       case 'personas':
         return <>
+                    <PersonToolBar ></PersonToolBar>
                     <TablaPersonas />;
-                    <CreatePerson/>
+                    
+                    <Modal isOpen={showModalToEdit} onClose={()=> setShowModalToEdit(false)}>
+                      <CreatePerson/>
+                    </Modal>
                   </>
       default:
         return <p>Seleccione una opción del menú</p>

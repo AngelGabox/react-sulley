@@ -8,6 +8,7 @@ const TablaEstudiantes = ({handleEdit}) => {
   const dispatch = useDispatch()
   // console.log(useGetStudentsQuery());
   const estudiantes = useSelector(s=>s.student.estudiantes)
+  const estudiantesFiltrados = useSelector(s=>s.student.estudiantesFiltrados)
   const { data, isSuccess, isLoading, isError } = useGetStudentsQuery();
   // const useStudents = useGetStudentsQuery();
   const [ deleteStudent ] = useDeleteStudentMutation()
@@ -17,7 +18,7 @@ useEffect(() => {
   if (isSuccess && estudiantes.length === 0) {
     dispatch(setEstudiantes(data));
   }
-}, [isSuccess, data, dispatch, estudiantes.length]);
+}, [isSuccess, data, dispatch, estudiantes.length, estudiantesFiltrados.length]);
 
 if (isLoading) return <p>Cargando estudiantes...</p>;
 if (isError) return <p>Error al cargar estudiantes</p>;
@@ -43,7 +44,7 @@ const handleDelete = (id) => {
         </tr>
       </thead>
       <tbody>
-        {estudiantes.map(est => (
+        {(estudiantesFiltrados.length>0?estudiantesFiltrados:estudiantes).map(est => (
           <tr key={est.id}>
             <td>{est.id}</td>
             <td>{est.nombre}</td>
@@ -55,7 +56,7 @@ const handleDelete = (id) => {
             <td>
               <div className="btn-group">
                   <a href="#" className="btn" onClick={()=>handleEdit(est)}><i className="fas fa-edit"></i></a>
-                  <a href="#" className="btn" onClick={()=>handleDelete(est.id_estudiante)} ><i className="fas fa-trash"></i></a>
+                  <a href="#" className="btn" onClick={()=>handleDelete(est.id)} ><i className="fas fa-trash"></i></a>
               </div>
             </td>
           </tr>
