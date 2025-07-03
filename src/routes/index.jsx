@@ -17,9 +17,9 @@ const index = () => {
             <Route path='/login' element={<Login></Login>}></Route>
             <Route path='/estudiantes' element={<TablaEstudiantes/>} />
             <Route path='/admin' element={
-              // <RequireAuth>
-              // </RequireAuth>
+              <RequireAuth>
                 <Admin/>
+              </RequireAuth>
           } />
           {/* <Route
             path="/acudiente/*" element={

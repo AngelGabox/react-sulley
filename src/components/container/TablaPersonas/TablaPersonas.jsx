@@ -38,6 +38,7 @@ const TablaPersonas = ({ handleEdit }) => {
             <th>Correo</th>
             <th>Dirección</th>
             <th>Teléfono</th>
+            <th>Rol</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -50,6 +51,7 @@ const TablaPersonas = ({ handleEdit }) => {
               <td>{per.correo}</td>
               <td>{per.direccion}</td>
               <td>{per.telefono}</td>
+              <td>{per.rol}</td>
               <td>
                 <div className="btn-group">
                   <a className="btn" onClick={() => handleEdit(per)}>

@@ -31,7 +31,7 @@ const PersonToolBar = ( onAddClick, onSearchChange) => {
     )
   }
   
-  const StudentToolbar = ({ onAddClick }) => {
+  const StudentToolbar = ({ onAddClickStudent }) => {
     const dispatch = useDispatch()
     
     const onSearchChangeStudent = (e) => {
@@ -50,7 +50,7 @@ const PersonToolBar = ( onAddClick, onSearchChange) => {
           <i className="fas fa-search"></i>
         </button>
       </div>
-      <button type="button" className="add-button" onClick={onAddClick}>
+      <button type="button" className="add-button" onClick={onAddClickStudent}>
         <i className="fas fa-plus-circle"></i> Agregar Estudiante
       </button>
     </div>

@@ -21,16 +21,25 @@ const Admin = () => {
 
   // Setear estudiante en el estado para obtenerlo en form de actualizar
   const [studentToEdit, setStudentToEdit] = useState(null);
-
+  // Setear persona en el estado para obtenerlo en form de actualizar
+  const [personToEdit, setPersonToEdit] = useState(null);
   
-  const handleEdit = (student) => {
+  const handleEditStudent = (student) => {
     setStudentToEdit(student);
     setShowModalToEdit(true);
   };
-
   const handleAddStudent = () => {
-  setShowModalToCreate(true); // o abrir modal
-};
+    setShowModalToCreate(true); // o abrir modal
+  };
+  
+
+  const handleEditPerson = (person) => {
+    setPersonToEdit(person);
+    setShowModalToEdit(true);
+  };
+  const handleAddPerson = () => {
+    setShowModalToCreate(true); // o abrir modal
+  };
 
   const [view, setView] = useState('estudiantes');
 
@@ -40,7 +49,7 @@ const Admin = () => {
         return <>
                      {/* Barra de búsqueda y botón de agregar */}
                     <StudentToolbar onAddClick={handleAddStudent}></StudentToolbar>
-                    <TablaEstudiantes handleEdit={handleEdit} />
+                    <TablaEstudiantes handleEdit={handleEditStudent} />
                     
                     {/* Formulario para crear Estudiante */}
                     <Modal isOpen={showModalToCreate} onClose={() => setShowModalToCreate(false)}>
@@ -55,8 +64,8 @@ const Admin = () => {
                   </>
       case 'personas':
         return <>
-                    <PersonToolBar ></PersonToolBar>
-                    <TablaPersonas />;
+                    <PersonToolBar onAddClick={handleAddPerson}></PersonToolBar>
+                    <TablaPersonas handleEdit={handleEditPerson}/>;
                     
                     <Modal isOpen={showModalToEdit} onClose={()=> setShowModalToEdit(false)}>
                       <CreatePerson/>
