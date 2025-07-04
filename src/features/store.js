@@ -3,6 +3,7 @@ import { api } from './api/apiSlicer';
 import  studentReducer  from "./students/studentSlice"
 import  userReducer from './user/userSlice';
 import  peopleReducer from './people/personSlice';
+import courseReducer from './cursos/cursosSlice';
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     user: userReducer,
     student: studentReducer,
     people: peopleReducer,
+    courses: courseReducer,
   },
 
   middleware: (getDefaultMiddleware) =>

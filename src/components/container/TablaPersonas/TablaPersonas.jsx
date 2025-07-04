@@ -34,6 +34,8 @@ const TablaPersonas = ({ handleEdit }) => {
           <tr>
             <th>ID</th>
             <th>Nombre</th>
+            <th>Tipo Documento</th>
+            <th>No Documento</th>
             <th>Apellido</th>
             <th>Correo</th>
             <th>Dirección</th>
@@ -43,12 +45,14 @@ const TablaPersonas = ({ handleEdit }) => {
           </tr>
         </thead>
         <tbody>
-          {(personasFiltradas.length>0?personasFiltradas:personas).map(per => (
-            <tr key={per.id_persona}>
-              <td>{per.id_persona}</td>
+          {(personasFiltradas.length>0?personasFiltradas:personas).map(per =>(
+            <tr key={per.id}>
+              <td>{per.id}</td>
               <td>{per.nombre}</td>
+              <td>{per.tipo_documento}</td>
+              <td>{per.numero_documento}</td>
               <td>{per.apellido}</td>
-              <td>{per.correo}</td>
+              <td>{per.email}</td>
               <td>{per.direccion}</td>
               <td>{per.telefono}</td>
               <td>{per.rol}</td>

@@ -10,6 +10,7 @@ import UpdateStudentForm from '../../forms/update/UpdateStudentForm/UpdateStuden
 
 import TablaPersonas from '../../container/TablaPersonas/TablaPersonas';
 import CreatePerson from '../../forms/create/CreatePerson/CreatePersonForm'
+import UpdatePersonForm from '../../forms/update/UpdatePersonForm/UpdatePersonForm';
 
 import Modal from '../../container/Modal/Modal';
 import "./Admin.css"
@@ -67,8 +68,12 @@ const Admin = () => {
                     <PersonToolBar onAddClick={handleAddPerson}></PersonToolBar>
                     <TablaPersonas handleEdit={handleEditPerson}/>;
                     
-                    <Modal isOpen={showModalToEdit} onClose={()=> setShowModalToEdit(false)}>
+                    <Modal isOpen={showModalToCreate} onClose={()=> setShowModalToEdit(false)}>
                       <CreatePerson/>
+                    </Modal>
+
+                    <Modal isOpen={showModalToEdit} onClose={() => setShowModalToCreate(false)}>
+                      <UpdatePersonForm person={personToEdit}></UpdatePersonForm>
                     </Modal>
                   </>
       default:

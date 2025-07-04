@@ -1,19 +1,27 @@
 import React from 'react'
 import "./MenuProfe.css"
-const MenuProfe = () => {
+import { useSelector } from 'react-redux'
+const MenuProfe = ({setView, currentView}) => {
+  const usuario = useSelector(state => state.user.user);
+  
+  const showUserProfile = () => {
+    setView("perfil");
+    console.log("Usuario actual:", usuario);
+  }
   return (
-    <aside class="sidebar">
-      <div class="profile">
-          <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Foto de perfil" class="profile-img"/>
+    <aside className="sidebar">
+      <div className="profile">
+          <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Foto de perfil" className="profile-img"/>
           <span>Profe Juan</span>
       </div>
       <nav>
           <ul>
-              <li><a href="index.html">Inicio</a></li>
-              <li><a href="cursos.html">Mis Cursos</a></li>
-              <li><a href="asistencia.html">Asistencia</a></li>
-              <li><a href="actividades.html">Actividades</a></li>
-              <li><a href="perfil.html">Perfil</a></li>
+              <li onClick={()=>setView("inicio")}>Inicio</li>
+              <li onClick={()=>setView("cursos")}>Mis Cursos</li>
+              <li onClick={()=>setView("asistencia")}>Asistencia</li>
+              <li onClick={()=>setView("actividades")}>Actividades</li>
+              {/* <li onClick={()=>setView("perfil")}>Perfil</li> */}
+              <li onClick={showUserProfile}>Perfil</li>
           </ul>
       </nav>
     </aside>

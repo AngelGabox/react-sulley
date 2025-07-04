@@ -13,22 +13,30 @@ const index = () => {
   return (
     <>
       <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path='/login' element={<Login></Login>}></Route>
-            <Route path='/estudiantes' element={<TablaEstudiantes/>} />
-            <Route path='/admin' element={
-              <RequireAuth>
-                <Admin/>
-              </RequireAuth>
-          } />
-          {/* <Route
-            path="/acudiente/*" element={
-              <RequireAuth>
-                <AcudienteDashboard />
-              </RequireAuth>
-            }
-          /> */}
-            <Route path='/profe' element={<Profe/>}/>
+          
+        <Route path="/" element={<Home />} />
+        
+        <Route path='/login' element={<Login></Login>}></Route>
+        
+        <Route path='/estudiantes' element={<TablaEstudiantes/>} />
+        
+        <Route path='/admin' element={
+          <RequireAuth>
+            <Admin/>
+          </RequireAuth>
+        } />
+        {/* <Route
+          path="/acudiente/*" element={
+            <RequireAuth>
+              <AcudienteDashboard />
+            </RequireAuth>
+          }
+        /> */}
+        <Route path='/profesor' element={
+          <RequireAuth>
+            <Profe/>
+          </RequireAuth>
+        }/>
       </Routes>
     </>  
   )
