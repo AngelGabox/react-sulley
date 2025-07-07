@@ -9,8 +9,15 @@ export const courseApi = api.injectEndpoints({
       providesTags: ['Courses'],
     }),
 
-    // Obtener curso por ID
-    getCourseById: builder.query({
+    // obtener estudiantes del curso 
+    getCourseWithStudents: builder.query({
+      query: (id) => `cursos/${id}/estudiantes`,
+      providesTags: (result, error, id) => [{ type: 'Courses', id }],
+    }),
+
+
+    // Obtener curso por ID de profesor
+    getCourseByTeacher: builder.query({
       query: (id) => `personas/cursos/${id}/`,
       providesTags: (result, error, id) => [{ type: 'Courses', id }],
     }),
@@ -50,7 +57,8 @@ export const courseApi = api.injectEndpoints({
 
 export const {
   useGetCoursesQuery,
-  useGetCourseByIdQuery,
+  useGetCourseWithStudentsQuery,
+  useGetCourseByTeacherQuery,
   useCreateCourseMutation,
   useUpdateCourseMutation,
   useDeleteCourseMutation,

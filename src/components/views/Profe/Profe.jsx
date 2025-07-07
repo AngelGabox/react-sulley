@@ -2,20 +2,25 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MenuProfe from "../../container/Menu/MenuProfe/MenuProfe"
 import "./Profe.css"
-import { useGetCourseByIdQuery } from "../../../features/cursos/cursosApi";
-import { coursesByTeacher } from "../../../features/cursos/cursosSlice";
+import { useGetCourseByTeacherQuery, useGetCourseWithStudentsQuery } from "../../../features/cursos/cursosApi";
+import { coursesByTeacher, setSelectedCourse } from "../../../features/cursos/cursosSlice";
 
 const Profe = () => {
     const dispatch = useDispatch();
     const [view, setView] = useState("inicio")
-    const [courses, setCourses] = useState([]);
     const cursosById = useSelector(state => state.courses.coursesByTeacher);
-    const { data } = useGetCourseByIdQuery(2);
+    const { data } = useGetCourseByTeacherQuery(2);
     console.log("Cursos por ID:", cursosById);
     
+
+  const verCurso = (curso) => {
+    const {data } = useGetCourseWithStudentsQuery(curso_id)
+    dispatch(setSelectedCourse(data))
+  } 
+
+
     // Función para renderizar el contenido según la vista seleccionada
 const renderContent = () => {
-
 
 
     switch (view) {
@@ -84,15 +89,20 @@ const renderContent = () => {
                 </div>
                 <div className="course-info" >
                     <h3>{course.nombre_curso}</h3>
-                    <p>Edad: 4-5 años</p> {/* puedes cambiar esto por course.edad si está disponible */}
-                    <p>Estudiantes: 25</p> {/* idem, si tienes course.estudiantes */}
+                    <p>{course.descripcion}</p> {/* puedes cambiar esto por course.edad si está disponible */}
                 </div>
-                <a href={`/cursos/${course.id}`} className="view-course" >
+                <a className="view-course"  onClick={()=>verCurso(course)}>
                     Ver Curso
                 </a>
                 </div>
             ))}
             </div>);
+      
+      case "curso-seleccionado":
+        return( 
+        <div className="courses-section">
+
+        </div>);
 
       case "asistencia":
         return <div className="view-placeholder">Asistencia</div>;
@@ -110,11 +120,14 @@ const renderContent = () => {
 
 
   useEffect(() => {
-    setCourses(data?.data|| []);
-    dispatch(coursesByTeacher(courses))
-  }, [dispatch, data, coursesByTeacher]);
+    if(data){
+      dispatch(coursesByTeacher(data))
+    }
+  }, [dispatch, data ]);
 
 //   if (loading) return <p>Cargando cursos...</p>;
+
+
 
 
   return (
