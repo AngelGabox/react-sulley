@@ -14,9 +14,11 @@ const Profe = () => {
     
 
   const verCurso = (curso) => {
-    const {data } = useGetCourseWithStudentsQuery(curso_id)
+    const {data } = useGetCourseWithStudentsQuery(curso.id)
     dispatch(setSelectedCourse(data))
   } 
+
+
 
 
     // Función para renderizar el contenido según la vista seleccionada
