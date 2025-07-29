@@ -32,6 +32,12 @@ const MenuAdmin = ({ setView, currentView }) => {
         <li onClick={() => setView('personas')} className={currentView === 'personas' ? 'active' : ''}>
           Personas
         </li>
+        <li onClick={() => setView('materias')} className={currentView === 'materias' ? 'active' : ''}>
+          Materias
+        </li>
+        <li onClick={() => setView('asignaciones')} className={currentView === 'asignaciones' ? 'active' : ''}>
+          Asignaciones
+        </li>
         <li onClick={logoutUser}>
           Cerrar Sesion
         </li>

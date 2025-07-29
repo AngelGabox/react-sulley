@@ -14,6 +14,8 @@ import UpdatePersonForm from '../../forms/update/UpdatePersonForm/UpdatePersonFo
 
 import Modal from '../../container/Modal/Modal';
 import "./Admin.css"
+import MateriasManager from '../../container/MateriasManager/MateriasManager';
+import AsignacionesForm from '../../container/AsignacionesForm/AsignacionesForm';
 
 const Admin = () => {
   // Ventana Modal reutilizanle
@@ -25,19 +27,27 @@ const Admin = () => {
   // Setear persona en el estado para obtenerlo en form de actualizar
   const [personToEdit, setPersonToEdit] = useState(null);
   
+
+  //Editar Persona
   const handleEditStudent = (student) => {
     setStudentToEdit(student);
     setShowModalToEdit(true);
   };
+
+
+  // Mostrar formulario para crear estudiante
   const handleAddStudent = () => {
     setShowModalToCreate(true); // o abrir modal
   };
   
 
+  //Editar Persona
   const handleEditPerson = (person) => {
     setPersonToEdit(person);
     setShowModalToEdit(true);
   };
+
+  
   const handleAddPerson = () => {
     setShowModalToCreate(true); // o abrir modal
   };
@@ -54,32 +64,50 @@ const Admin = () => {
                     
                     {/* Formulario para crear Estudiante */}
                     <Modal isOpen={showModalToCreate} onClose={() => setShowModalToCreate(false)}>
-                      <CreateStudentForm/>;
+                      <CreateStudentForm onClose={setShowModalToCreate}/>;
                     </Modal>
 
                     {/* Formulario para Editar Estudiante */}
                     <Modal isOpen={showModalToEdit} onClose={()=> setShowModalToEdit(false)}>
-                      <UpdateStudentForm student={studentToEdit}></UpdateStudentForm>
+                      <UpdateStudentForm student={studentToEdit} onClose={setShowModalToEdit}></UpdateStudentForm>
                     </Modal>
 
                   </>
+
+
       case 'personas':
-        return <>
-                    <PersonToolBar onAddClick={handleAddPerson}></PersonToolBar>
-                    <TablaPersonas handleEdit={handleEditPerson}/>;
-                    
-                    <Modal isOpen={showModalToCreate} onClose={()=> setShowModalToEdit(false)}>
-                      <CreatePerson/>
-                    </Modal>
+        return (
+        <>
+          <PersonToolBar onAddClick={handleAddPerson}></PersonToolBar>
+          <TablaPersonas handleEdit={handleEditPerson}/>;
+          
+          <Modal isOpen={showModalToCreate} onClose={() => setShowModalToCreate(false)}>
+            <CreatePerson onClose={setShowModalToCreate}/>
+          </Modal>
 
-                    <Modal isOpen={showModalToEdit} onClose={() => setShowModalToCreate(false)}>
-                      <UpdatePersonForm person={personToEdit}></UpdatePersonForm>
-                    </Modal>
-                  </>
+          <Modal isOpen={showModalToEdit} onClose={()=> setShowModalToEdit(false)}>
+            <UpdatePersonForm person={personToEdit} onClose={setShowModalToEdit }></UpdatePersonForm>
+          </Modal>
+        </>)
+
+
+      case 'materias':
+        return (
+          <>
+            <MateriasManager teriasManager></MateriasManager>
+          </>)
+      case 'asignaciones':
+          return(
+            <>
+              <AsignacionesForm></AsignacionesForm>
+            </>
+          )
       default:
         return <p>Seleccione una opción del menú</p>
     }
+  
   };
+
 
   return (
     <div className="admin-layout">

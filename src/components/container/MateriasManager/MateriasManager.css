@@ -1,0 +1,39 @@
+/* src/components/MateriasManager.css */
+.materias-manager {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.materias-list, .materias-form {
+  flex: 1;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.materias-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.materias-list li {
+  padding: .25rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: .5rem;
+  box-sizing: border-box;
+}
+
+.error {
+  color: red;
+  font-size: .875rem;
+  margin-top: .25rem;
+}

@@ -5,7 +5,7 @@ import { filterByNamePerson } from '../../../features/people/personSlice';
 import './StudentToolbar.css';
 
 
-const PersonToolBar = ( onAddClick, onSearchChange) => {
+const PersonToolBar = ( {onAddClick} ) => {
   const dispatch = useDispatch()
   
   const onSearchChangePerson = (e) => {
@@ -17,7 +17,7 @@ const PersonToolBar = ( onAddClick, onSearchChange) => {
         <input
           type="text"
           className="search-input"
-          placeholder="Buscar estudiante..."
+          placeholder="Buscar profe..."
           onChange={onSearchChangePerson}
           />
         <button className="search-button" type="button">
@@ -25,7 +25,7 @@ const PersonToolBar = ( onAddClick, onSearchChange) => {
         </button>
       </div>
       <button type="button" className="add-button" onClick={onAddClick}>
-        <i className="fas fa-plus-circle"></i> Agregar Estudiante
+        <i className="fas fa-plus-circle"></i> Agregar Profe
       </button>
     </div>
     )

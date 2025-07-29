@@ -8,14 +8,12 @@ import { coursesByTeacher, setSelectedCourse } from "../../../features/cursos/cu
 const Profe = () => {
     const dispatch = useDispatch();
     const [view, setView] = useState("inicio")
-    const cursosById = useSelector(state => state.courses.coursesByTeacher);
-    const { data } = useGetCourseByTeacherQuery(2);
-    console.log("Cursos por ID:", cursosById);
-    
 
+    const { data } = useGetCourseByTeacherQuery(2);
+    // console.log("Cursos por ID:",  coursesByTeacherId);
+    
   const verCurso = (curso) => {
-    const {data } = useGetCourseWithStudentsQuery(curso.id)
-    dispatch(setSelectedCourse(data))
+    dispatch(setSelectedCourse(curso))
   } 
 
 
@@ -80,7 +78,7 @@ const renderContent = () => {
         
       case "cursos":
         return (<div className="courses-section" >
-            {cursosById.map(course => (
+            {data.length > 0 && data.map(course => (
                 <div key={course.id} className="course-card" >
                 <div className="course-icon" >
                     <img
@@ -100,11 +98,21 @@ const renderContent = () => {
             ))}
             </div>);
       
-      case "curso-seleccionado":
-        return( 
-        <div className="courses-section">
-
-        </div>);
+      // case "curso-seleccionado":
+      //   if (loadingCurso) return <p>Cargando curso...</p>;
+      //   if (errorCurso)   return <p>Error cargando curso</p>;
+      //   return (
+      //     <div className="courses-section">
+      //       <h2>{cursoSeleccionado.nombre_curso}</h2>
+      //       <p>{cursoSeleccionado.descripcion}</p>
+      //       <h3>Estudiantes:</h3>
+      //       <ul>
+      //         {cursoSeleccionado.estudiantes.map(e => (
+      //           <li key={e.id}>{e.nombre} {e.apellido}</li>
+      //         ))}
+      //       </ul>
+      //     </div>
+      //   );
 
       case "asistencia":
         return <div className="view-placeholder">Asistencia</div>;

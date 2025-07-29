@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { useCreateStudentMutation } from '../../../../features/students/studentApi'; 
 import  '../../GeneralForm.css';
 
-const CreateStudentForm = () => {
+const CreateStudentForm = ({onClose}) => {
   const [createStudent, { isLoading, }] = useCreateStudentMutation();
 
   const initialValues = {
@@ -49,7 +49,7 @@ const CreateStudentForm = () => {
 
   const onSubmit = async() => {
     const { nombre, apellido, fecha_nacimiento, direccion, telefono, correo_electronico, nivel_academico, curso_id } = values ;
-  
+    
     if (nombre && apellido && fecha_nacimiento && direccion && telefono && correo_electronico && nivel_academico &&  curso_id ) {
       try {
         await createStudent({...values, curso: curso_id}).unwrap();
@@ -61,6 +61,7 @@ const CreateStudentForm = () => {
     } else {
       alert('Hay datos incorrectos');
     }
+    onClose(false)
   };
 
 	const formik = useFormik({ initialValues, validationSchema: validationSchema(), onSubmit });
