@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import { setUser } from '../features/user/userSlice';
+import { setCredentials } from '../features/user/userSlice';
 
 const RequireAuth = ({ children }) => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const RequireAuth = ({ children }) => {
   useEffect(() => {
     if (!user && sessionStorage.getItem('user')) {
       const savedUser = JSON.parse(sessionStorage.getItem('user'));
-      dispatch(setUser(savedUser));
+      dispatch(setCredentials(savedUser));
     }
   }, [user, dispatch]);
 

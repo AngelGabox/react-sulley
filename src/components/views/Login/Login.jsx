@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useLoginUserMutation } from '../../../features/user/userApi';
-import { setUser } from '../../../features/user/userSlice';
+import { setCredentials } from '../../../features/user/userSlice';
 import './login.css';
 
 const Login = () => {
@@ -20,21 +20,17 @@ const Login = () => {
     e.preventDefault();
     const { username, password } = form;
     if (!username || !password) {
-      return alert('Completa usuario y contraseña');
+      return alert('Completa usuario y contrasena');
     }
     try {
-      const response = await login({ username, password }).unwrap();
-      const { access, refresh, usuario } = response;
+       const { access, refresh, usuario } = await login(form).unwrap()
+    // guardamos tokens y user
+    localStorage.setItem('access', access)
+    localStorage.setItem('refresh', refresh)
+    sessionStorage.setItem('user', JSON.stringify(usuario))
+    dispatch(setCredentials({ user: usuario, access, refresh }))
 
-      // Guardar tokens
-      localStorage.setItem('access', access);
-      localStorage.setItem('refresh', refresh);
-
-      // Guardar datos de usuario
-      sessionStorage.setItem('user', JSON.stringify(usuario));
-      dispatch(setUser(usuario));
-
-      // Redirigir según rol
+      // Redirigir segun rol
       switch (usuario.rol) {
         case 'Administrador': navigate('/admin/'); break;
         case 'Profesor':      navigate('/profesor/'); break;
@@ -54,7 +50,7 @@ const Login = () => {
         <img src="/imagenes/logo-jardin.png" alt="logo-jardin" />
       </div>
       <div className="login-container">
-        <h2>Iniciar Sesión</h2>
+        <h2>Iniciar Sesion</h2>
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">Usuario:</label>
           <input
@@ -66,7 +62,7 @@ const Login = () => {
             autoComplete="username"
           />
 
-          <label htmlFor="password">Contraseña:</label>
+          <label htmlFor="password">Contrase�a:</label>
           <input
             type="password"
             id="password"
@@ -80,7 +76,7 @@ const Login = () => {
             {isLoading ? 'Cargando...' : 'Iniciar Sesión'}
           </button>
         </form>
-        <p>¿No tienes una cuenta? <a href="/registro">Regístrate</a></p>
+        <p>�No tienes una cuenta? <a href="/registro">Registrate</a></p>
       </div>
     </div>
   );

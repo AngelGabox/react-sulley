@@ -54,6 +54,7 @@ const CreateStudentForm = ({onClose}) => {
       try {
         await createStudent({...values, curso: curso_id}).unwrap();
         alert('Estudiante creado con éxito');
+        onClose()
       } catch (error) {
         alert('Error al crear estudiante');
         console.error(error);

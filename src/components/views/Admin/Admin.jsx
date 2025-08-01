@@ -36,7 +36,7 @@ const Admin = () => {
 
 
   // Mostrar formulario para crear estudiante
-  const handleAddStudent = () => {
+  const handleAdd = () => {
     setShowModalToCreate(true); // o abrir modal
   };
   
@@ -48,9 +48,6 @@ const Admin = () => {
   };
 
   
-  const handleAddPerson = () => {
-    setShowModalToCreate(true); // o abrir modal
-  };
 
   const [view, setView] = useState('estudiantes');
 
@@ -59,17 +56,17 @@ const Admin = () => {
       case 'estudiantes':
         return <>
                      {/* Barra de búsqueda y botón de agregar */}
-                    <StudentToolbar onAddClick={handleAddStudent}></StudentToolbar>
+                    <StudentToolbar onAddClick={handleAdd}></StudentToolbar>
                     <TablaEstudiantes handleEdit={handleEditStudent} />
                     
                     {/* Formulario para crear Estudiante */}
                     <Modal isOpen={showModalToCreate} onClose={() => setShowModalToCreate(false)}>
-                      <CreateStudentForm onClose={setShowModalToCreate}/>;
+                      <CreateStudentForm onClose={()=>setShowModalToCreate(false)}/>;
                     </Modal>
 
                     {/* Formulario para Editar Estudiante */}
                     <Modal isOpen={showModalToEdit} onClose={()=> setShowModalToEdit(false)}>
-                      <UpdateStudentForm student={studentToEdit} onClose={setShowModalToEdit}></UpdateStudentForm>
+                      <UpdateStudentForm student={studentToEdit} onClose={() => setShowModalToEdit(false) }></UpdateStudentForm>
                     </Modal>
 
                   </>
@@ -78,15 +75,15 @@ const Admin = () => {
       case 'personas':
         return (
         <>
-          <PersonToolBar onAddClick={handleAddPerson}></PersonToolBar>
+          <PersonToolBar onAddClick={handleAdd}></PersonToolBar>
           <TablaPersonas handleEdit={handleEditPerson}/>;
           
           <Modal isOpen={showModalToCreate} onClose={() => setShowModalToCreate(false)}>
-            <CreatePerson onClose={setShowModalToCreate}/>
+            <CreatePerson onClose={()=>setShowModalToCreate(false)}/>
           </Modal>
 
           <Modal isOpen={showModalToEdit} onClose={()=> setShowModalToEdit(false)}>
-            <UpdatePersonForm person={personToEdit} onClose={setShowModalToEdit }></UpdatePersonForm>
+            <UpdatePersonForm person={personToEdit} onClose={() => setShowModalToEdit(false) }></UpdatePersonForm>
           </Modal>
         </>)
 

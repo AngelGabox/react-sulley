@@ -11,6 +11,7 @@ const Profe = () => {
 
     const { data } = useGetCourseByTeacherQuery(2);
     // console.log("Cursos por ID:",  coursesByTeacherId);
+    console.log(data);
     
   const verCurso = (curso) => {
     dispatch(setSelectedCourse(curso))
@@ -78,7 +79,9 @@ const renderContent = () => {
         
       case "cursos":
         return (<div className="courses-section" >
-            {data.length > 0 && data.map(course => (
+
+            {data?.length > 0 ? 
+              data.map(course => (
                 <div key={course.id} className="course-card" >
                 <div className="course-icon" >
                     <img
@@ -95,8 +98,10 @@ const renderContent = () => {
                     Ver Curso
                 </a>
                 </div>
-            ))}
-            </div>);
+            ))  
+            : <p>"No hay cursos"</p> }
+
+          </div>)
       
       // case "curso-seleccionado":
       //   if (loadingCurso) return <p>Cargando curso...</p>;

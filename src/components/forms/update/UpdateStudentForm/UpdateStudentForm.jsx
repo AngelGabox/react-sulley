@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { useUpdateStudentMutation } from '../../../../features/students/studentApi'; 
 import '../../GeneralForm.css';
 
-const UpdateStudentForm = ({ student }) => {
+const UpdateStudentForm = ({ student, onClose }) => {
   const [updateStudent, { isLoading }] = useUpdateStudentMutation();
 
   // Valores iniciales tomados del estudiante recibido por props
@@ -35,6 +35,7 @@ const UpdateStudentForm = ({ student }) => {
     try {
       updateStudent({ id: student.id, ...values }).unwrap();
       alert("Estudiante actualizado con éxito");
+      onClose()
     } catch (error) {
       console.error("Error al actualizar estudiante:", error);
       alert("Error al actualizar estudiante");

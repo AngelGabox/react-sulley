@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPeople } from '../../../features/people/personSlice';
-import { useGetPeopleQuery, useDeletePersonMutation, useUpdatePersonMutation} from '../../../features/people/personApi';
+import { useGetPeopleQuery, useDeletePersonMutation} from '../../../features/people/personApi';
 import "./TablaPersonas.css";
 
 const TablaPersonas = ({ handleEdit }) => {

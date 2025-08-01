@@ -4,19 +4,15 @@ import { NavLink } from 'react-router-dom';
 import './MenuAdmin.css'; // Importa el CSS
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../../../features/user/userSlice'
+import { logoutUser } from '../../../../features/user/userSlice'
 
 const MenuAdmin = ({ setView, currentView }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const logoutUser = () => {
-    // Eliminar datos del almacenamiento
-    sessionStorage.removeItem('user');
-    localStorage.removeItem('user');
-
-    // Limpiar el estado global (opcional)
-    dispatch(setUser(null));
+  const logout = () => {
+    // Limpiar las credenciales
+    dispatch(logoutUser());
 
     // Redirigir al login
     navigate('/login', { replace: true });
@@ -38,7 +34,7 @@ const MenuAdmin = ({ setView, currentView }) => {
         <li onClick={() => setView('asignaciones')} className={currentView === 'asignaciones' ? 'active' : ''}>
           Asignaciones
         </li>
-        <li onClick={logoutUser}>
+        <li onClick={logout}>
           Cerrar Sesion
         </li>
       </ul>
