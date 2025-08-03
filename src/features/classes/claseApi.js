@@ -9,11 +9,12 @@ export const claseApi = api.injectEndpoints({
       query: (idCurso) => `clases/estudiantes-del-curso/${idCurso}/`,
     }),
     crearClase: builder.mutation({
-      query: (nuevaClase) => ({
+      query: ({ dictada_por, fecha, duracion }) => ({
         url: 'clases/',
         method: 'POST',
-        body: nuevaClase
-      })
+        body: { dictada_por, fecha, duracion }
+      }),
+      invalidatesTags: ['Clases']
     }),
     registrarAsistencia: builder.mutation({
       query: (asistencia) => ({

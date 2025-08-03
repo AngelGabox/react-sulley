@@ -24,6 +24,7 @@ const Login = () => {
     }
     try {
        const { access, refresh, usuario } = await login(form).unwrap()
+       
     // guardamos tokens y user
     localStorage.setItem('access', access)
     localStorage.setItem('refresh', refresh)
@@ -73,7 +74,7 @@ const Login = () => {
           />
 
           <button type="submit" className="boton-login" disabled={isLoading}>
-            {isLoading ? 'Cargando...' : 'Iniciar SesiÃ³n'}
+            {isLoading ? 'Cargando...' : 'Iniciar Sesion'}
           </button>
         </form>
         <p>¿No tienes una cuenta? <a href="/registro">Registrate</a></p>

@@ -4,9 +4,9 @@
 }
 
 .main-content-profe {
-  flex: 1;
-  padding: 1.5rem;
-  background: #f5f5f5;
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f1f8f6;
 }
 
 /* Navbar */

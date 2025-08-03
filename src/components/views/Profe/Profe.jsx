@@ -1,155 +1,116 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import MenuProfe from "../../container/Menu/MenuProfe/MenuProfe"
-import "./Profe.css"
-import { useGetCourseByTeacherQuery, useGetCourseWithStudentsQuery } from "../../../features/cursos/cursosApi";
-import { coursesByTeacher, setSelectedCourse } from "../../../features/cursos/cursosSlice";
+// src/components/views/Profe/Profe.jsx
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import MenuProfe from '../../container/Menu/MenuProfe/MenuProfe';
+import './css/Profe.css';
+
+import DashboardProfesor from './DashboardProfesor';
+import CoursesList from './CoursesList';
+import CourseDetail from './CourseDetail';
+import Attendance from './Attendance';
+import Activities from './Activities';
+import Profile from './Profile';
+
+import {
+  useGetCourseByTeacherQuery,
+  useGetCourseWithStudentsQuery,
+} from '../../../features/cursos/cursosApi';
+import {
+  coursesByTeacher,
+  setSelectedCourse,
+  setCursoProfesorMateria
+} from '../../../features/cursos/cursosSlice';
 
 const Profe = () => {
-    const dispatch = useDispatch();
-    const [view, setView] = useState("inicio")
+  const dispatch = useDispatch();
 
-    const { data } = useGetCourseByTeacherQuery(2);
-    // console.log("Cursos por ID:",  coursesByTeacherId);
-    console.log(data);
+  // Estado local para controlar la "vista" actual
+  const [view, setView] = useState('inicio');
+  
+    // Estado local para almacenar el id del curso seleccionado
+    const [selectedCPM, setSelectedCPM] = useState(null);
+    // console.log("selectedCPM", selectedCPM);
     
-  const verCurso = (curso) => {
-    dispatch(setSelectedCourse(curso))
-  } 
+  // Tomamos el usuario actual (profesor) del store de Redux
+  const profe = useSelector((s) => s.user.user);
 
+  // Llamada al endpoint para obtener los cursos del profesor
+  // Usamos profe.id si está definido, o 2 como fallback durante el desarrollo
+  const { data: cursosData } = useGetCourseByTeacherQuery(
+    profe ? profe.id : 2
+  );
+  // console.log( cursosData);
+  
 
+  // Cuando selectedId cambia, disparamos la query para traer
+  // el detalle del curso (incluyendo estudiantes)
+  const { data: detalleCurso } = useGetCourseWithStudentsQuery(
+    selectedCPM?.curso?.id,
+    { skip: !selectedCPM?.curso?.id } // skip evita la llamada hasta que selectedId sea truthy
+  );
 
+  // Cada vez que llegan los cursos del profesor, los guardamos en Redux
+  useEffect(() => {
+    if (cursosData) {
+      dispatch(coursesByTeacher(cursosData));
+    }
+  }, [dispatch, cursosData]);
 
-    // Función para renderizar el contenido según la vista seleccionada
-const renderContent = () => {
-
-
-    switch (view) {
-      case "inicio":
-        return (
-          <div className="main-content">
-            <div className="navbar">
-              <div className="greeting">
-                <h1>Hola, Profe Juan</h1>
-                <div className="notification">
-                  <img
-                    src="https://img.icons8.com/ios/452/bell.png"
-                    alt="Notificaciones"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="dashboard-cards">
-              <div className="card">
-                <h3>Total estudiantes</h3>
-                <p>25</p>
-              </div>
-              <div className="card">
-                <h3>Clases hoy</h3>
-                <p>3</p>
-              </div>
-              <div className="card">
-                <h3>Actividades pendientes</h3>
-                <p>4</p>
-              </div>
-            </div>
-
-            <div className="attendance-section">
-              <h2>Asistencia semanal</h2>
-              <div className="attendance-circle">
-                <p>90%</p>
-              </div>
-            </div>
-
-            <div className="recent-activities">
-              <h2>Actividades Recientes</h2>
-              <ul>
-                <li>Dibujo de animales</li>
-                <li>Juego con bloques</li>
-                <li>Collage creativo</li>
-                <li>Cuento infantil</li>
-              </ul>
-            </div>
-          </div>
-        );
-
-
-        
-        
-      case "cursos":
-        return (<div className="courses-section" >
-
-            {data?.length > 0 ? 
-              data.map(course => (
-                <div key={course.id} className="course-card" >
-                <div className="course-icon" >
-                    <img
-                    src="https://img.icons8.com/ios/452/classroom.png"
-                    alt={course.nombre_curso}
-                    
-                    />
-                </div>
-                <div className="course-info" >
-                    <h3>{course.nombre_curso}</h3>
-                    <p>{course.descripcion}</p> {/* puedes cambiar esto por course.edad si está disponible */}
-                </div>
-                <a className="view-course"  onClick={()=>verCurso(course)}>
-                    Ver Curso
-                </a>
-                </div>
-            ))  
-            : <p>"No hay cursos"</p> }
-
-          </div>)
+  // Cuando llega el detalle de un curso, lo seteamos en Redux
+  // y cambiamos la vista a "curso-seleccionado"
+  useEffect(() => {
+    if (detalleCurso) {
+      dispatch(setSelectedCourse(detalleCurso));
       
-      // case "curso-seleccionado":
-      //   if (loadingCurso) return <p>Cargando curso...</p>;
-      //   if (errorCurso)   return <p>Error cargando curso</p>;
-      //   return (
-      //     <div className="courses-section">
-      //       <h2>{cursoSeleccionado.nombre_curso}</h2>
-      //       <p>{cursoSeleccionado.descripcion}</p>
-      //       <h3>Estudiantes:</h3>
-      //       <ul>
-      //         {cursoSeleccionado.estudiantes.map(e => (
-      //           <li key={e.id}>{e.nombre} {e.apellido}</li>
-      //         ))}
-      //       </ul>
-      //     </div>
-      //   );
+      // console.log('Detalle de curso cargado:', detalleCurso);
+      setView('curso-seleccionado');
+    }
+  }, [dispatch, detalleCurso]);
 
-      case "asistencia":
-        return <div className="view-placeholder">Asistencia</div>;
+  // Manejador que se pasa al componente CoursesList para cuando
+  // el usuario haga clic en "Ver Curso"
+  const handleSelectCourse = (curso) => {
+    setSelectedCPM(curso);
+    dispatch(setCursoProfesorMateria(curso))
+    // console.log("curso seleccionado", curso);
+  };
 
-      case "actividades":
-        return <div className="view-placeholder">Actividades</div>;
-
-      case "perfil":
-        return <div className="view-placeholder">Perfil</div>;
-
+  // Renderizado condicional de cada sección según el valor de `view`
+  const renderContent = () => {
+    switch (view) {
+      case 'inicio':
+        return <DashboardProfesor />;
+      case 'cursos':
+        return (
+          <CoursesList
+            courses={cursosData || []}
+            onSelect={handleSelectCourse}
+          />
+        );
+      case 'curso-seleccionado':
+        return <CourseDetail />;
+      case 'asistencia':
+        return <Attendance />;
+      case 'actividades':
+        return <Activities />;
+      case 'perfil':
+        return <Profile />;
       default:
         return null;
     }
   };
 
-
-  useEffect(() => {
-    if(data){
-      dispatch(coursesByTeacher(data))
-    }
-  }, [dispatch, data ]);
-
-//   if (loading) return <p>Cargando cursos...</p>;
-
-
-
-
   return (
     <div className="profe-container">
+      {/* Sidebar de navegación */}
       <MenuProfe setView={setView} currentView={view} />
-      <main className="main-content-profe">{renderContent()}</main>
-    </div>
-  );}
 
-export default Profe
+      {/* Contenedor principal donde se va mostrando la sección correspondiente */}
+      <main className="main-content-profe">
+        {renderContent()}
+      </main>
+    </div>
+  );
+};
+
+export default Profe;

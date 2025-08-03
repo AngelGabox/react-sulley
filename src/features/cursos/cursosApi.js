@@ -19,7 +19,7 @@ export const courseApi = api.injectEndpoints({
     // Obtener curso por ID de profesor
     getCourseByTeacher: builder.query({
       query: (id) => `personas/${id}/cursos-materias/`,
-      providesTags: (result, error, id) => [{ type: 'Courses', id }],
+      providesTags: (result, error, id) => [{ type: 'Courses', id }],      
     }),
 
 
