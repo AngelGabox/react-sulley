@@ -1,0 +1,40 @@
+
+.seccion-curso {
+    display: flex;
+    flex-direction: column;
+}
+
+.seccion-curso
+{
+
+}
+
+.crear-clase
+{
+    height: 30px;
+}
+
+/* Asistencia */
+.seccion-asistencia {
+    margin-top: 2rem;
+}
+.lista-asistencia
+{
+    list-style: none;
+}
+.lista-asistencia .estudiante
+{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: row;
+    height: 40px;
+    background-color: rgb(146, 204, 255);
+    margin: 10px 0;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+.estudiante img
+{
+    height: 30px;
+}

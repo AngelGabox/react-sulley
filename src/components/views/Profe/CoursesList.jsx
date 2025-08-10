@@ -1,5 +1,6 @@
 // src/pages/Profesor/CoursesList.jsx
 import React from 'react';
+import './css/CoursesList.css'
 
 const CoursesList = ({ courses = [], onSelect }) => {
   if (!courses.length) {

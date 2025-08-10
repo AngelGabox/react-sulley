@@ -1,8 +1,12 @@
 
 /* Sidebar */
 .sidebar {
-    width: 250px;
-    background-color: #a9d0d3;
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100dvh; overflow: auto;
+    /* width: 25%; */
+    background-color: #6ab9be;
     padding: 20px;
     height: 100vh;
     color: white;
@@ -29,27 +33,55 @@
     font-weight: bold;
 }
 
-.sidebar nav ul {
-    list-style-type: none;
+.sidebar .navigation{
+    position: relative;
     width: 100%;
-    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.5s;
 }
 
-.sidebar nav ul li {
+.sidebar .navigation .menu-profe {
+    position: relative;
+    width: 100%;
+    padding: 30px 10px;
+    transition: 0.5s;
+}
+
+.sidebar .navigation .menu-profe li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     margin-bottom: 20px;
+    list-style: none;
+    border-radius: 30px;
 }
 
-.sidebar nav ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    display: block;
-    padding: 10px;
-    text-align: center;
-    background-color: #80b8bb;
-    border-radius: 8px;
+.sidebar .navigation .menu-profe li .icon
+{
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:  2rem;
+}
+.sidebar .navigation .menu-profe li .text
+{
+    position: relative;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25em;
+    margin-left: 10px;
 }
 
-.sidebar nav ul li a:hover {
+.sidebar .navigation .menu-profe li:hover {
     background-color: #5b8a8b;
 }
