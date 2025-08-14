@@ -1,4 +1,4 @@
-// src/pages/Profesor/Profile.jsx
+// src/views/components/Profesor/Profile.jsx
 import React from 'react';
 
 const Profile = () => (

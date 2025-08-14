@@ -1,4 +1,4 @@
-// src/pages/Profesor/CourseDetail.jsx
+// src/views/components/Profesor/CourseDetail.jsx
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCrearClaseMutation } from '../../../features/clase/claseApi'
@@ -60,6 +60,15 @@ const CourseDetail = () => {
     if (!showAttendance && claseId) refetch();
   };
 
+//   // Toggle asistencia: usa el valor "next"
+// const toggleAsistencia = () => {
+//   setShowAttendance(prev => {
+//     const next = !prev;
+//     if (next && claseId) refetch();
+//     return next;
+//   });
+// };
+
   const estadoById = new Map(
     asistenciaData?.estudiantes?.map(e => [e.estudiante_id, e.estado]) || []
   );
@@ -83,25 +92,34 @@ const CourseDetail = () => {
     else localStorage.removeItem('currentClass');
   }, [currentClass]);
 
-  // Timer
-  useEffect(() => {
-    if (!currentClass || currentClass.status !== 'running') {
-      setRemaining(0);
-      return;
+// Timer
+useEffect(() => {
+  if (!currentClass || currentClass.status !== 'running') {
+    setRemaining(0);
+    return;
+  }
+
+  let timerId; // <- declarada antes para que exista en la clausura
+
+  const tick = () => {
+    const ms  = currentClass.endsAt - Date.now();
+    const sec = Math.max(0, Math.floor(ms / 1000));
+    setRemaining(sec);
+
+    if (ms <= 0) {
+      dispatch(endClass());
+      if (timerId) clearInterval(timerId); // <- ya existe
     }
-    const tick = () => {
-      const ms = currentClass.endsAt - Date.now();
-      const sec = Math.max(0, Math.floor(ms/1000));
-      setRemaining(sec);
-      if (ms <= 0) {
-        dispatch(endClass());
-        clearInterval(id);
-      }
-    };
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, [currentClass, dispatch]);
+  };
+
+  // primero creo el intervalo, luego llamo a tick()
+  timerId = setInterval(tick, 1000);
+  tick();
+
+  return () => {
+    if (timerId) clearInterval(timerId);
+  };
+}, [currentClass, dispatch]);
 
   
   const handleEmpezarClase = async () => {

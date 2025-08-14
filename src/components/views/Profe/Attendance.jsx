@@ -1,4 +1,4 @@
-// src/pages/Profesor/Attendance.jsx
+// src/views/components/Profesor/Attendance.jsx
 import React from 'react';
 
 const Attendance = () => (

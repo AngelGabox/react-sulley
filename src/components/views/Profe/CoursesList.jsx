@@ -1,4 +1,4 @@
-// src/pages/Profesor/CoursesList.jsx
+// src/views/components/Profesor/CoursesList.jsx
 import React from 'react';
 import './css/CoursesList.css'
 

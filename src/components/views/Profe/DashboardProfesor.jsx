@@ -1,4 +1,4 @@
-// src/pages/Profesor/DashboardHome.jsx
+// src/views/components/Profesor/DashboardHome.jsx
 import React from 'react';
 
 const DashboardHome = () => (
