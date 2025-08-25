@@ -141,14 +141,21 @@ useEffect(() => {
       
       const startedAt = Date.now();
       const endsAt = startedAt + durSec * 1000;
-      
       dispatch(startClass({
-        ...nueva,                // lo que devuelva tu API (id, fecha, dictada_por, duracion, …)
+        ...nueva,                // { id, fecha, dictada_por, duracion, ... }
         duracionSec: durSec,
         startedAt,
         endsAt,
         status: 'running',
+
+        // 🔴 foto del CPM cuando empezó la clase
+        cpmSnapshot: {
+          id: cpm.id,
+          curso:   { id: cpm.curso?.id,   nombre_curso: cpm.curso?.nombre_curso },
+          materia: { id: cpm.materia?.id, nombre: cpm.materia?.nombre }
+        }
       }));
+      
     } catch (err) {
       console.error(err)
       alert('No se pudo iniciar la clase')

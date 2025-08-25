@@ -1,7 +1,11 @@
 import React from 'react'
 import "./MenuProfe.css"
 import { useSelector } from 'react-redux'
+import ClassStatusMini from '../../../views/Profe/ClassStatusMini'
+
+
 const MenuProfe = ({setView}) => {
+  const claseActiva = useSelector(s => s.clase?.current?.status === 'running');
   const usuario = useSelector(state => state.user.user);
   
   const showUserProfile = () => {
@@ -23,7 +27,10 @@ const MenuProfe = ({setView}) => {
               <span className="text">Inicio</span>
             </li>
             
-            <li onClick={()=>setView("cursos")}>
+            <li onClick={() => {
+                                if (claseActiva) return; 
+                                setView("cursos");
+                              }} className={claseActiva ? 'disabled' : ''} >
               <span className="icon"><ion-icon name="people-outline"></ion-icon></span>
               <span className="text">Cursos</span>
             </li>
@@ -44,6 +51,10 @@ const MenuProfe = ({setView}) => {
               <span className="text">Perfil</span>
             </li>
         </ul>
+      </div>
+      {/* Widget de clase dentro del menú */}
+      <div className="menu-bottom">
+        <ClassStatusMini onGo={() => setView('curso-seleccionado')} />
       </div>
     </aside>
   )

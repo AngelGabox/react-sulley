@@ -15,10 +15,16 @@ export const asistenciaApi = api.injectEndpoints({
       }),
       invalidatesTags: (r, e, { claseId }) => [{ type: 'Asistencia', id: claseId }],
     }),
+    getResumenAsistencia: builder.query({
+      // cpmId es el id de CursoProfesorMateria
+      query: (cpmId) => `clases/curso/${cpmId}/resumen-asistencia/`,
+      providesTags: (result, error, cpmId) => [{ type: 'AsistenciaResumen', id: cpmId }],
+    }),
   }),
 });
 
 export const {
   useGetAsistenciaByClaseQuery,
   useUpsertAsistenciaMutation,
+  useGetResumenAsistenciaQuery,
 } = asistenciaApi;

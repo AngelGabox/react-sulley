@@ -60,6 +60,8 @@
     list-style: none;
     border-radius: 30px;
 }
+.menu-profe li.disabled { opacity: .5; pointer-events: none; }
+
 
 .sidebar .navigation .menu-profe li .icon
 {
