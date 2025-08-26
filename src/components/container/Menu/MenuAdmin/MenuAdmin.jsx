@@ -22,20 +22,23 @@ const MenuAdmin = ({ setView, currentView }) => {
     <aside className="admin-menu">
       <h3>Menú</h3>
       <ul>
+
         <li onClick={() => setView('estudiantes')} className={currentView === 'estudiantes' ? 'active' : ''}>
-          Estudiantes
+          <span className="text">Estudiantes</span>
         </li>
+
         <li onClick={() => setView('personas')} className={currentView === 'personas' ? 'active' : ''}>
-          Personas
+          <span className="text">Personas</span>
         </li>
+
         <li onClick={() => setView('materias')} className={currentView === 'materias' ? 'active' : ''}>
-          Materias
+          <span className="text">Materias</span>
         </li>
         <li onClick={() => setView('asignaciones')} className={currentView === 'asignaciones' ? 'active' : ''}>
-          Asignaciones
+          <span className="text">Asignaciones</span>
         </li>
         <li onClick={logout}>
-          Cerrar Sesion
+          <span className="text">Cerrar Sesion</span>
         </li>
       </ul>
     </aside>

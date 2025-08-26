@@ -1,15 +1,21 @@
 /* src/components/MateriasManager.css */
 .materias-manager {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
   gap: 2rem;
   align-items: flex-start;
+  /* background-color: aqua; */
 }
 
 .materias-list, .materias-form {
-  flex: 1;
+  margin-top: 10px;
   padding: 1rem;
   border: 1px solid #ddd;
   border-radius: 4px;
+  font-size: 2rem;
+  background-color: #d2fff0;
 }
 
 .materias-list ul {
@@ -19,9 +25,17 @@
 
 .materias-list li {
   padding: .25rem 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #3b6855;
 }
-
+.materias-list h2, .materias-form h2
+{
+  margin: 20px;
+}
+.materias-form form button 
+{
+  font-size: 1.4rem;
+  padding: 5px 10px;
+}
 .form-group {
   margin-bottom: 1rem;
 }
@@ -29,6 +43,7 @@
 .form-group input {
   width: 100%;
   padding: .5rem;
+  font-size: 1.5rem;
   box-sizing: border-box;
 }
 

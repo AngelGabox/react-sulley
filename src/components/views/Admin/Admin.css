@@ -4,7 +4,7 @@
   width: 100%; 
 }
 .admin-content {
-  width: 80vw;
+  width: 85vw;
   background-color: #f8fafc; /* gris claro */
   overflow-y: auto;
   box-sizing: border-box;

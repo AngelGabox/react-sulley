@@ -2,6 +2,7 @@ import React, { useEffect  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEstudiantes } from '../../../features/students/studentSlice';
 import { useDeleteStudentMutation, useGetStudentsQuery } from '../../../features/students/studentApi';
+import AcudienteCell from '../Guardians/AcudienteCell';
 import "./TablaEstudiantes.css"
 
 const TablaEstudiantes = ({handleEdit}) => {
@@ -40,6 +41,7 @@ const handleDelete = (id) => {
           <th>Direccion</th>
           <th>Fecha Nacimiento</th>
           <th>Curso</th>
+          <th>Acudiente</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -53,6 +55,9 @@ const handleDelete = (id) => {
             <td>{est.direccion}</td>
             <td>{est.fecha_nacimiento}</td>
             <td>{est.curso}</td>
+            <td>
+              <AcudienteCell student={est} />
+            </td>
             <td>
               <div className="btn-group">
                   <a href="#" className="btn" onClick={()=>handleEdit(est)}><i className="fas fa-edit"></i></a>

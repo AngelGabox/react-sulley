@@ -86,7 +86,7 @@
 .container--input input:valid ~ a , .container--input input:focus ~ a{
     color: var(--input);
 }
-button{
+.button-form{
     border: none;
     outline: none;
     background: #45f3ff;

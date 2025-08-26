@@ -1,11 +1,15 @@
 // src/components/forms/create/CreatePerson/CreatePersonForm.jsx
 import React from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useCreatePersonMutation } from '../../../../features/people/personApi';
 import '../../GeneralForm.css';
 
 const CreatePersonForm = () => {
+  const [params] = useSearchParams();
+  const preRol = params.get('new') === 'acudiente' ? 'Acudiente' : '';
+
   const [createPerson, { isLoading }] = useCreatePersonMutation();
 
   const initialValues = {
@@ -17,7 +21,7 @@ const CreatePersonForm = () => {
     direccion: '',
     fecha_nacimiento: '',
     email: '',
-    rol: ''
+    rol: preRol
   };
 
   const required = "* Este campo es obligatorio";

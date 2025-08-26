@@ -44,6 +44,10 @@ export const personApi = api.injectEndpoints({
       }),
       invalidatesTags: (result, error, id) => [{ type: 'People', id }],
     }),
+
+    searchPeople: builder.query({
+      query: (q) => `personas/buscar/?q=${encodeURIComponent(q)}`,
+    }),
   }),
     
   overrideExisting: false,
@@ -56,4 +60,5 @@ export const {
   useCreatePersonMutation,
   useUpdatePersonMutation,
   useDeletePersonMutation,
+  useLazySearchPeopleQuery
 } = personApi;

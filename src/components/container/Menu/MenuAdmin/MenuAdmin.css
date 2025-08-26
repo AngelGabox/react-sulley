@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 20vw;
+  width: 15dvw;
+  padding: 30px 20px;
   background-color: var(--dark-blue);
   color: white;
 }
@@ -15,14 +16,31 @@
 }
 
 .admin-menu ul {
+  position: relative;
+  width: 100%;
+  padding: 30px 0px;
   list-style: none;
-  padding: 0;
+  transition: 0.5s;
 }
 
 .admin-menu li {
-  padding: 10px 0;
-  cursor: pointer;
-  transition: background 0.2s ease;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 10px;
+  margin-bottom: 20px;
+  list-style: none;
+  border-radius: 30px;
+}
+.admin-menu li .text
+{
+  position: relative;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    margin-left: 10px;
 }
 
 .admin-menu li:hover {

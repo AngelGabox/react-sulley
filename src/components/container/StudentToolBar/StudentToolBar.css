@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 40px;
   gap: 1rem;
   flex-wrap: wrap;
   margin-bottom: 1.5rem;
@@ -11,25 +12,30 @@
   display: flex;
   flex: 1;
   max-width: 60%;
+  margin-top: 10px;
 }
 
 .search-input {
   flex: 1;
+  height: 20px;
   padding: 10px;
   border: 1px solid #aaa;
   border-radius: 5px 0 0 5px;
-  font-size: 1rem;
+  font-size: 1.5rem;
   outline: none;
+
 }
 
 .search-button {
-  padding: 10px 15px;
+  height: 20px;
+  padding: 10px 20px;
+  margin: 0;
   background-color: #1a3258;
   color: #fff;
   border: 1px solid #1a3258;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 2rem;
   transition: background-color 0.3s ease;
 }
 
@@ -38,11 +44,12 @@
 }
 
 .add-button {
+  height: 20px;
   padding: 10px 20px;
   background-color: #28a745;
   color: white;
   border: none;
-  font-size: 1rem;
+  font-size: 1.5rem;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;

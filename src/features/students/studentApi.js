@@ -44,6 +44,26 @@ export const studentApi = api.injectEndpoints({
       }),
       invalidatesTags: (result, error, id) => [{ type: 'Students', id }],
     }),
+
+    getStudentGuardians: builder.query({
+      query: (id) => `estudiantes/${id}/acudientes/`,
+      providesTags: (r, e, id) => [{ type: 'Guardians', id }],
+    }),
+    addGuardianToStudent: builder.mutation({
+      query: ({ studentId, persona_id, parentesco }) => ({
+        url: `estudiantes/${studentId}/acudientes/`,
+        method: 'POST',
+        body: { persona_id, parentesco },
+      }),
+      invalidatesTags: (r, e, { studentId }) => [{ type: 'Guardians', id: studentId }],
+    }),
+    removeGuardianFromStudent: builder.mutation({
+      query: ({ studentId, persona_id }) => ({
+        url: `estudiantes/${studentId}/acudientes/${persona_id}/`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (r, e, { studentId }) => [{ type: 'Guardians', id: studentId }],
+    }),
   }),
   overrideExisting: false,
 });
@@ -55,6 +75,9 @@ export const {
   useCreateStudentMutation,
   useUpdateStudentMutation,
   useDeleteStudentMutation,
+  useGetStudentGuardiansQuery,
+  useAddGuardianToStudentMutation,
+  useRemoveGuardianFromStudentMutation,
 } = studentApi;
 
 // | Variable     | Tipo      | ¿Para qué sirve?                                                             |

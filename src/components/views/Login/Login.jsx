@@ -63,7 +63,7 @@ const Login = () => {
             autoComplete="username"
           />
 
-          <label htmlFor="password">Contraseña:</label>
+          <label >ContraseÃ±a:</label>
           <input
             type="password"
             id="password"
@@ -77,7 +77,7 @@ const Login = () => {
             {isLoading ? 'Cargando...' : 'Iniciar Sesion'}
           </button>
         </form>
-        <p>¿No tienes una cuenta? <a href="/registro">Registrate</a></p>
+        <p> Â¿No tienes una cuenta? <a href="/registro">Registrate</a></p>
       </div>
     </div>
   );

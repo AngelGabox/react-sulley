@@ -52,7 +52,7 @@ const ProfesorCrearClase = ({ profesorId }) => {
         </div>
       ))}
 
-      <button onClick={handleCrearClase}>Registrar Clase y Asistencia</button>
+      <button  onClick={handleCrearClase}>Registrar Clase y Asistencia</button>
     </div>
   );
 };
