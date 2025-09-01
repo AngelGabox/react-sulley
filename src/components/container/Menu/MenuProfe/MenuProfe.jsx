@@ -1,8 +1,6 @@
 import React from 'react'
 import "./MenuProfe.css"
 import { useSelector } from 'react-redux'
-import ClassStatusMini from '../../../views/Profe/ClassStatusMini'
-
 
 const MenuProfe = ({setView}) => {
   const claseActiva = useSelector(s => s.clase?.current?.status === 'running');
@@ -51,10 +49,6 @@ const MenuProfe = ({setView}) => {
               <span className="text">Perfil</span>
             </li>
         </ul>
-      </div>
-      {/* Widget de clase dentro del menú */}
-      <div className="menu-bottom">
-        <ClassStatusMini onGo={() => setView('curso-seleccionado')} />
       </div>
     </aside>
   )

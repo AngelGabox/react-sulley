@@ -4,7 +4,6 @@ import  studentReducer  from "./students/studentSlice"
 import  userReducer from './user/userSlice';
 import  peopleReducer from './people/personSlice';
 import courseReducer from './cursos/cursosSlice';
-import claseReducer from './clase/claseSlice'
 import actividadesReducer from './actividades/actividadesSlice'
 
 // Leemos (si existe) el usuario previamente logueado
@@ -21,7 +20,6 @@ const store = configureStore({
     student: studentReducer,
     people: peopleReducer,
     courses: courseReducer,
-    clase: claseReducer,
     actividades: actividadesReducer,
   },
   preloadedState: {

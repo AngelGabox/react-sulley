@@ -3,28 +3,32 @@ import { api } from '../api/apiSlicer';
 
 export const asistenciaApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getAsistenciaByClase: builder.query({
-      query: (claseId) => `clases/${claseId}/asistencia/`,
-      providesTags: (r, e, id) => [{ type: 'Asistencia', id }],
+     getAsistenciaByCPM: builder.query({
+      query: ({ cpmId, fecha }) =>
+        `clases/asistencias/cpm/${cpmId}/?fecha=${fecha}`,
+      providesTags: (r, e, args) => [{ type: 'Asistencia', id: `${args.cpmId}:${args.fecha}` }],
     }),
     upsertAsistencia: builder.mutation({
-      query: ({ claseId, estudiante_id, estado }) => ({
-        url: `clases/${claseId}/asistencia/marcar/`,
+      query: ({ cpmId, fecha, estudiante_id, estado }) => ({
+        url: `clases/asistencias/cpm/${cpmId}/upsert/`,
         method: 'POST',
-        body: { estudiante_id, estado },
+        body: { fecha, estudiante_id, estado },
       }),
-      invalidatesTags: (r, e, { claseId }) => [{ type: 'Asistencia', id: claseId }],
+      invalidatesTags: (r, e, { cpmId, fecha }) => [{ type: 'Asistencia', id: `${cpmId}:${fecha}` }],
     }),
-    getResumenAsistencia: builder.query({
-      // cpmId es el id de CursoProfesorMateria
-      query: (cpmId) => `clases/curso/${cpmId}/resumen-asistencia/`,
-      providesTags: (result, error, cpmId) => [{ type: 'AsistenciaResumen', id: cpmId }],
+    getFechasConAsistencia: builder.query({
+      query: (cpmId) => `clases/asistencias/cpm/${cpmId}/fechas/`,
+      providesTags: (r, e, id) => [{ type: 'AsistenciaFechas', id }],
+    }),
+        getResumenAsistencia: builder.query({
+      query: (cpmId) => `clases/asistencias/cpm/${cpmId}/resumen/`,
     }),
   }),
 });
 
 export const {
-  useGetAsistenciaByClaseQuery,
+  useGetAsistenciaByCPMQuery,
   useUpsertAsistenciaMutation,
+  useGetFechasConAsistenciaQuery,
   useGetResumenAsistenciaQuery,
 } = asistenciaApi;
