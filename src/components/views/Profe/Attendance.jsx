@@ -1,4 +1,4 @@
-// src/components/views/Profesor/Attendance.jsx
+// src/views/components/Profesor/Attendance.jsx
 import { useSelector } from 'react-redux';
 import { useGetResumenAsistenciaQuery } from '../../../features/asistencia/asistenciaApi';
 import './css/Attendance.css';

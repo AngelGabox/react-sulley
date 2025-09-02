@@ -20,7 +20,7 @@ export const asistenciaApi = api.injectEndpoints({
       query: (cpmId) => `clases/asistencias/cpm/${cpmId}/fechas/`,
       providesTags: (r, e, id) => [{ type: 'AsistenciaFechas', id }],
     }),
-        getResumenAsistencia: builder.query({
+    getResumenAsistencia: builder.query({
       query: (cpmId) => `clases/asistencias/cpm/${cpmId}/resumen/`,
     }),
   }),

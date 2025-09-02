@@ -1,83 +1,116 @@
-// src/pages/Profesor/CourseDetail.jsx
-import React, { useMemo, useState } from 'react';
+// src/components/views/Profesor/CourseDetail.jsx
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  useGetAsistenciaByCPMQuery,
-  useUpsertAsistenciaMutation,
-} from '../../../features/asistencia/asistenciaApi';
 import './css/CourseDetail.css';
-
-const today = () => new Date().toISOString().slice(0, 10);
+import Attendance from './Attendance';
 
 const CourseDetail = () => {
-  // Del store: curso seleccionado (lista de estudiantes) y CPM seleccionado
-  const { estudiantes, cpm } = useSelector((s) => ({
-    estudiantes: s.courses.selectedCourse || [],             // array de estudiantes del curso
-    cpm: s.courses.curso_profesor_materia,                   // { id, curso, materia, persona }
-  }));
-
-  const [fecha, setFecha] = useState(today());
-
-  const cpmId = cpm?.id;
-  const { data, isFetching } = useGetAsistenciaByCPMQuery(
-    { cpmId, fecha },
-    { skip: !cpmId }
+  // Curso/Materia seleccionados desde Redux
+  const cpm = useSelector((s) => s.courses.curso_profesor_materia);
+  
+  // Tabs: resumen | asistencia | notas | actividades | estudiantes | archivos
+  const [tab, setTab] = useState('resumen');
+  
+  const TabBtn = ({ id, children }) => (
+    <button
+    className={`cd-tab ${tab === id ? 'active' : ''}`}
+    onClick={() => setTab(id)}
+    type="button"
+    >
+      {children}
+    </button>
   );
-  const [upsertAsistencia, { isLoading: saving }] = useUpsertAsistenciaMutation();
+  
+  const renderTabContent = () => {
+    switch (tab) {
+      case 'resumen':
+        return (
+          <div className="cd-panel">
+            <h3>Resumen</h3>
+            <p>Próximamente: tarjetas con estudiantes, % asistencia, promedio, etc.</p>
+          </div>
+        );
+        case 'asistencia':
+          return (
+            <>
+              <Attendance></Attendance>
+            </>
+        );
+        case 'notas':
+          return (
+            <div className="cd-panel">
+            <h3>Notas</h3>
+            <p>Tabla de calificaciones y promedios (pendiente de implementar).</p>
+          </div>
+        );
+        case 'actividades':
+          return (
+            <div className="cd-panel">
+            <h3>Actividades</h3>
+            <p>Listado y creación de actividades para este curso.</p>
+          </div>
+        );
+        case 'estudiantes':
+          return (
+            <div className="cd-panel">
+            <h3>Estudiantes</h3>
+            <p>Listado de estudiantes del curso (pendiente de implementar).</p>
+          </div>
+        );
+        case 'archivos':
+          return (
+            <div className="cd-panel">
+            <h3>Archivos</h3>
+            <p>Material del curso (pendiente de implementar).</p>
+          </div>
+        );
+        default:
+          return null;
+        }
+      };
+      // if (!cpm) return <p>Selecciona un curso para ver el detalle.</p>;
+        
+      return (
+        <section className="course-detail">
+      {/* Encabezado */}
+      <header className="cd-header">
+        <div className="cd-breadcrumb">
+          <span className="cd-crumb">Mis cursos</span>
+          <span className="cd-sep">›</span>
+          <span className="cd-curso">{cpm.curso?.nombre_curso}</span>
+        </div>
 
-  const estadoPorEstudiante = useMemo(() => {
-    const map = new Map();
-    data?.estudiantes?.forEach((e) => map.set(e.estudiante_id, e.estado));
-    return map;
-  }, [data]);
+        <div className="cd-actions">
+          <button
+            className="cd-primary"
+            type="button"
+            onClick={() => setTab('asistencia')}
+            title="Ir a asistencia de hoy"
+          >
+            Tomar asistencia hoy
+          </button>
+          {/* Iconos/acciones extra podrían ir aquí */}
+        </div>
+      </header>
 
-  if (!cpm) return <p>No hay curso seleccionado.</p>;
-
-  const marcar = async (estudiante_id, estado) => {
-    await upsertAsistencia({ cpmId, fecha, estudiante_id, estado });
-  };
-
-  return (
-    <div className="seccion-curso">
-      <h2>{cpm.curso?.nombre_curso} — {cpm.materia?.nombre}</h2>
-
-      <div className="filtros-asistencia">
-        <label>Fecha:&nbsp;
-          <input type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} />
-        </label>
+      {/* Subtítulo con materia */}
+      <div className="cd-subtitle">
+        <strong>Materia:</strong>&nbsp;{cpm.materia?.nombre}
       </div>
 
-      <h3>Asistencia</h3>
-      {isFetching ? <p>Cargando…</p> : null}
+      {/* Mini Navbar (tabs) */}
+      <nav className="cd-tabs">
+        <TabBtn id="resumen">Resumen</TabBtn>
+        <TabBtn id="asistencia">Asistencia</TabBtn>
+        <TabBtn id="notas">Notas</TabBtn>
+        <TabBtn id="actividades">Actividades</TabBtn>
+        <TabBtn id="estudiantes">Estudiantes</TabBtn>
+        <TabBtn id="archivos">Archivos</TabBtn>
+      </nav>
 
-      <ul className="lista-asistencia">
-        {estudiantes.map((e) => {
-          const estado = estadoPorEstudiante.get(e.id);
-          return (
-            <li key={e.id} className="estudiante">
-              <img
-                src="https://randomuser.me/api/portraits/men/2.jpg"
-                alt="Est."
-                className="student-img"
-              />
-              <span>{e.nombre} {e.apellido}</span>
-              <div className="attendance-buttons">
-                <button
-                  className={`present-btn ${estado === 'Presente' ? 'active' : ''}`}
-                  onClick={() => marcar(e.id, 'Presente')}
-                  disabled={saving}
-                >✅</button>
-                <button
-                  className={`absent-btn ${estado === 'Ausente' ? 'active' : ''}`}
-                  onClick={() => marcar(e.id, 'Ausente')}
-                  disabled={saving}
-                >❌</button>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+      {/* Contenido de cada tab */}
+      <div className="cd-content">{renderTabContent()}</div>
+    </section>
   );
 };
 
