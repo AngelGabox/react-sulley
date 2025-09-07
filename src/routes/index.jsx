@@ -8,7 +8,8 @@ import RequireAuth from '../hooks/RequireAutn'
 import Home from "../components/views/Home/Home"
 
 import Profe  from '../components/views/Profe/Profe'
-
+import ResetPasswordConfirm from '../components/views/Auth/ResetPasswordConfirm'
+import ResetPasswordRequest from '../components/views/Auth/ResetPasswordRequest'
 const index = () => {
   return (
     <>
@@ -36,6 +37,14 @@ const index = () => {
           <RequireAuth>
             <Profe/>
           </RequireAuth>
+        }/>
+
+
+        <Route path='/cambiar-contraseña' element={
+            <ResetPasswordRequest/>
+        }/>
+        <Route path='/reset-password/:uid/:token' element={
+            <ResetPasswordConfirm/>
         }/>
       </Routes>
     </>  

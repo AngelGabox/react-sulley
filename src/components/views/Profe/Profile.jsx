@@ -92,24 +92,30 @@ const Profile = () => {
 
       {!editMode ? (
         <div className="perfil-read">
-          <section>
-            <h3>Datos personales</h3>
-            <p><strong>Nombre: </strong>{persona.nombre} {persona.apellido}</p>
-            <p><strong>Documento: </strong>{persona.tipo_documento} {persona.numero_documento}</p>
-            <p><strong>Teléfono: </strong>{persona.telefono}</p>
-            <p><strong>Dirección: </strong>{persona.direccion}</p>
-            <p><strong>Nacimiento: </strong>{persona.fecha_nacimiento}</p>
+
+          <section className='perfil-card'>
+            <div className="perfil-dl">
+              <h3>Datos personales</h3>
+              <p><strong>Nombre: </strong>{persona.nombre} {persona.apellido}</p>
+              <p><strong>Documento: </strong>{persona.tipo_documento} {persona.numero_documento}</p>
+              <p><strong>Teléfono: </strong>{persona.telefono}</p>
+              <p><strong>Dirección: </strong>{persona.direccion}</p>
+              <p><strong>Nacimiento: </strong>{persona.fecha_nacimiento}</p>
+            </div>
           </section>
-          <section>
-            <h3>Usuario</h3>
-            <p><strong>Email/Usuario: </strong>{user.email}</p>
-            <p><strong>Rol: </strong>{user.rol}</p>
-            <small className="hint">¿Cambiar contraseña? Edita y escribe una nueva.</small>
+
+          <section className="perfil-card">
+            <div className="perfil-dl">
+              <h3>Usuario</h3>
+              <p><strong>Email/Usuario: </strong>{user.email}</p>
+              <p><strong>Rol: </strong>{user.rol}</p>
+              <small className="hint">¿Cambiar contraseña? Edita y escribe una nueva.</small>
+            </div>
           </section>
 
           <div className="perfil-actions">
             <button onClick={() => setEditMode(true)}>Editar</button>
-            <a className="link" href="/cambiar-contrasena">Cambiar contraseña</a>
+            <a className="link" href="/cambiar-contraseña">Cambiar contraseña</a>
           </div>
         </div>
       ) : (

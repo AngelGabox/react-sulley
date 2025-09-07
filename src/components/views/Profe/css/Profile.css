@@ -1,15 +1,142 @@
-/* src/components/views/Perfil/perfil.css */
-.perfil-wrapper { padding: 24px; }
-.perfil-read section { margin-bottom: 16px; }
-.perfil-actions { display: flex; gap: 12px; margin-top: 12px; }
-.perfil-actions .link { align-self: center; }
-.perfil-form .grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(280px, 1fr));
-  gap: 12px 20px;
-  margin: 12px 0 8px;
+/* Contenedor general */
+.perfil-wrapper{
+  padding: 24px 28px;
+  max-width: 980px;
+  margin: 0 auto;
 }
-.perfil-form label { display: flex; flex-direction: column; gap: 6px; }
-.perfil-form input { padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
-.error { color: #b91c1c; font-size: 12px; }
-.secondary { background: #e5e7eb; }
+
+.perfil-wrapper h2{
+  margin: 0 0 16px;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+/* ====== Modo lectura ====== */
+.perfil-read{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.perfil-card{
+  background: var(--card);
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  padding: 18px 20px;
+}
+
+.perfil-dl h3{
+  margin: 0 0 10px;
+  color: var(--brand);
+}
+
+.perfil-dl p{
+  margin: 6px 0;
+  color: var(--text);
+}
+
+.hint{
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Acciones comunes (lectura y edición) */
+.perfil-actions{
+  grid-column: 1 / -1;           /* que ocupe todo el ancho de la grid */
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.perfil-actions button{
+  background: var(--brand);
+  color: #fff;
+  border: 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.perfil-actions .secondary{
+  background: #e5e7eb;
+  color: var(--text);
+}
+
+.perfil-actions .link{
+  color: var(--brand);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.perfil-actions button[disabled]{
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+/* ====== Modo edición (formulario) ====== */
+.perfil-form{
+  background: var(--card);
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.05);
+}
+
+.perfil-form h3{
+  margin: 0 0 12px;
+  color: var(--brand);
+}
+
+.perfil-form .grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
+  gap: 14px 20px;
+  margin-top: 8px;
+}
+
+.perfil-form label{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.perfil-form input,
+.perfil-form select,
+.perfil-form textarea{
+  outline: none;
+  padding: 10px 12px;
+  border: 1px solid var(--ring);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text);
+}
+
+.perfil-form input:focus,
+.perfil-form select:focus,
+.perfil-form textarea:focus{
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(27,49,88,.12);
+}
+
+.error{
+  color: var(--danger);
+  font-size: 12px;
+  margin-top: -4px;
+}
+
+/* (opcional) Si quieres que en pantallas estrechas pase a una columna,
+   descomenta este bloque:
+
+@media (max-width: 920px){
+  .perfil-read{ grid-template-columns: 1fr; }
+  .perfil-actions{ grid-column: 1; }
+  .perfil-form .grid{ grid-template-columns: 1fr; }
+}
+*/
