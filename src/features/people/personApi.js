@@ -3,7 +3,17 @@ import { api } from "../api/apiSlicer";
 export const personApi = api.injectEndpoints({
 
   endpoints: (builder) => ({
-    
+    getMyPersona: builder.query({
+      query: () => 'personas/me/', // <- endpoint nuevo
+    }),
+    updateMyPersona: builder.mutation({
+      query: (patchBody) => ({
+        url: 'personas/me/',
+        method: 'PATCH',
+        body: patchBody,
+      }),
+      invalidatesTags: ['Persona'],
+    }),
     // Obtener todos las personas
     getPeople: builder.query({
       query: () => 'personas/',
@@ -55,10 +65,13 @@ export const personApi = api.injectEndpoints({
 
 // Exporta los hooks listos para usar en componentes
 export const {
+  useGetMyPersonaQuery,
   useGetPeopleQuery,
   useGetPersonByIdQuery,
   useCreatePersonMutation,
   useUpdatePersonMutation,
   useDeletePersonMutation,
-  useLazySearchPeopleQuery
+  useLazySearchPeopleQuery,
+  useLazyGetMyPersonaQuery,
+  useUpdateMyPersonaMutation,
 } = personApi;

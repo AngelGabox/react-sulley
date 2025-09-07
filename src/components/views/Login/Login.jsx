@@ -3,12 +3,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useLoginUserMutation } from '../../../features/user/userApi';
-import { setCredentials } from '../../../features/user/userSlice';
+import { setCredentials, setPersona  } from '../../../features/user/userSlice';
+import { useLazyGetMyPersonaQuery } from '../../../features/people/personApi';
 import './login.css';
 
 const Login = () => {
   const [form, setForm] = useState({ username: '', password: '' });
   const [login, { isLoading }] = useLoginUserMutation();
+  const [fetchMyPersona] = useLazyGetMyPersonaQuery(); // <- lazy para controlarlo
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -20,16 +23,30 @@ const Login = () => {
     e.preventDefault();
     const { username, password } = form;
     if (!username || !password) {
-      return alert('Completa usuario y contrasena');
+      return alert('Completa usuario y contraseña');
     }
+
     try {
        const { access, refresh, usuario } = await login(form).unwrap()
        
-    // guardamos tokens y user
-    localStorage.setItem('access', access)
-    localStorage.setItem('refresh', refresh)
-    sessionStorage.setItem('user', JSON.stringify(usuario))
-    dispatch(setCredentials({ user: usuario, access, refresh }))
+      // guardamos tokens y user
+      localStorage.setItem('access', access)
+      localStorage.setItem('refresh', refresh)
+      sessionStorage.setItem('user', JSON.stringify(usuario))
+      dispatch(setCredentials({ user: usuario, access, refresh }))
+    
+      // Traer la Persona asociada al usuario autenticado
+      try {
+        const persona = await fetchMyPersona().unwrap();
+        sessionStorage.setItem('persona', JSON.stringify(persona));
+        dispatch(setPersona(persona));
+      } catch (e) {
+        // Puede no existir Persona (por rol distinto); no es bloqueo
+        console.log('Login: ', e);
+        sessionStorage.removeItem('persona');
+        dispatch(setPersona(null));
+      }
+
 
       // Redirigir segun rol
       switch (usuario.rol) {
@@ -48,7 +65,7 @@ const Login = () => {
     <div className="login-wrapper">
       <button className="inicio" onClick={() => navigate('/')}>Inicio</button>
       <div className="logo">
-        <img src="/imagenes/logo-jardin.png" alt="logo-jardin" />
+        <img src="/src/assets/logo.png" alt="logo-jardin" />
       </div>
       <div className="login-container">
         <h2>Iniciar Sesion</h2>

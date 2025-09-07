@@ -61,7 +61,6 @@ const Profe = () => {
   useEffect(() => {
     if (detalleCurso) {
       dispatch(setSelectedCourse(detalleCurso));
-      
       // console.log('Detalle de curso cargado:', detalleCurso);
       setView('curso-seleccionado');
     }
@@ -70,6 +69,7 @@ const Profe = () => {
   // Manejador que se pasa al componente CoursesList para cuando
   // el usuario haga clic en "Ver Curso"
   const handleSelectCourse = (curso) => {
+    setView('curso-seleccionado');
     setSelectedCPM(curso);
     dispatch(setCursoProfesorMateria(curso))
     // console.log("curso seleccionado", curso);

@@ -1,0 +1,15 @@
+/* src/components/views/Perfil/perfil.css */
+.perfil-wrapper { padding: 24px; }
+.perfil-read section { margin-bottom: 16px; }
+.perfil-actions { display: flex; gap: 12px; margin-top: 12px; }
+.perfil-actions .link { align-self: center; }
+.perfil-form .grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  gap: 12px 20px;
+  margin: 12px 0 8px;
+}
+.perfil-form label { display: flex; flex-direction: column; gap: 6px; }
+.perfil-form input { padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
+.error { color: #b91c1c; font-size: 12px; }
+.secondary { background: #e5e7eb; }

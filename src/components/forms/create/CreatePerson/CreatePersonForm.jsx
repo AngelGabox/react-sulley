@@ -60,7 +60,8 @@ const CreatePersonForm = () => {
         }
       };
 
-
+      console.log(payload);
+      
       await createPerson(payload).unwrap();
       alert('Persona creada con éxito');
     } catch (error) {

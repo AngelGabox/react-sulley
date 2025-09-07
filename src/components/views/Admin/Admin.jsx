@@ -15,7 +15,8 @@ import UpdatePersonForm from '../../forms/update/UpdatePersonForm/UpdatePersonFo
 import Modal from '../../container/Modal/Modal';
 import "./Admin.css"
 import MateriasManager from '../../container/MateriasManager/MateriasManager';
-import AsignacionesForm from '../../container/AsignacionesForm/AsignacionesForm';
+import AsignacionesCrud from './AsignacionesCrud';
+
 
 const Admin = () => {
   // Ventana Modal reutilizanle
@@ -96,7 +97,7 @@ const Admin = () => {
       case 'asignaciones':
           return(
             <>
-              <AsignacionesForm></AsignacionesForm>
+              <AsignacionesCrud></AsignacionesCrud>
             </>
           )
       default:

@@ -34,9 +34,9 @@ const TablaPersonas = ({ handleEdit }) => {
           <tr>
             <th>ID</th>
             <th>Nombre</th>
+            <th>Apellido</th>
             <th>Tipo Documento</th>
             <th>No Documento</th>
-            <th>Apellido</th>
             <th>Correo</th>
             <th>Dirección</th>
             <th>Teléfono</th>
@@ -49,9 +49,9 @@ const TablaPersonas = ({ handleEdit }) => {
             <tr key={per.id}>
               <td>{per.id}</td>
               <td>{per.nombre}</td>
+              <td>{per.apellido}</td>
               <td>{per.tipo_documento}</td>
               <td>{per.numero_documento}</td>
-              <td>{per.apellido}</td>
               <td>{per.email}</td>
               <td>{per.direccion}</td>
               <td>{per.telefono}</td>
