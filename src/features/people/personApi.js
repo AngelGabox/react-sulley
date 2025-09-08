@@ -58,8 +58,26 @@ export const personApi = api.injectEndpoints({
     searchPeople: builder.query({
       query: (q) => `personas/buscar/?q=${encodeURIComponent(q)}`,
     }),
+
+    importarEstudiantes: builder.mutation({
+      /**
+       * Espera un File (xlsx o csv). Construimos el FormData aquí.
+       */
+      query: (file) => {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        return {
+          url: 'personas/importar-estudiantes/',  // <-- DRF
+          method: 'POST',
+          body: formData,
+        };
+      },
+      // invalidar lo que necesites refrescar (ajústalo a tu proyecto)
+      invalidatesTags: ['Estudiantes', 'Personas', 'PersonaEstudiante'],
+    }),
+
   }),
-    
   overrideExisting: false,
 });
 
@@ -74,4 +92,5 @@ export const {
   useLazySearchPeopleQuery,
   useLazyGetMyPersonaQuery,
   useUpdateMyPersonaMutation,
+  useImportarEstudiantesMutation
 } = personApi;

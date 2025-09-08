@@ -10,6 +10,7 @@ import Home from "../components/views/Home/Home"
 import Profe  from '../components/views/Profe/Profe'
 import ResetPasswordConfirm from '../components/views/Auth/ResetPasswordConfirm'
 import ResetPasswordRequest from '../components/views/Auth/ResetPasswordRequest'
+import ImportEstudiantes from '../components/views/Admin/ImportEstudiantes'
 const index = () => {
   return (
     <>
@@ -26,6 +27,8 @@ const index = () => {
             <Admin/>
           </RequireAuth>
         } />
+        <Route path="/admin/importar-estudiantes" element={<ImportEstudiantes/>} />
+
         {/* <Route
           path="/acudiente/*" element={
             <RequireAuth>
