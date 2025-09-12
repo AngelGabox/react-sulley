@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './css/CourseDetail.css';
 import Attendance from './Attendance';
+import Activities from './Activities';
 
 const CourseDetail = () => {
   // Curso/Materia seleccionados desde Redux
@@ -47,7 +48,7 @@ const CourseDetail = () => {
           return (
             <div className="cd-panel">
             <h3>Actividades</h3>
-            <p>Listado y creación de actividades para este curso.</p>
+            <Activities></Activities>
           </div>
         );
         case 'estudiantes':

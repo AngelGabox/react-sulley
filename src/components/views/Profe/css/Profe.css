@@ -10,6 +10,7 @@
     flex-direction: column;
     padding: 20px;
     background-color: #f1f8f6;
+    overflow: auto;
 }
 
 /* Navbar */

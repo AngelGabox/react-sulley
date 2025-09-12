@@ -20,6 +20,7 @@ const actividadesSlice = createSlice({
     },
     toggleFormulario(state, action) {
       state.mostrarFormulario = action.payload ?? !state.mostrarFormulario;
+      state.actividadSeleccionada = ''
     },
     setFiltroTodas(state, action) {
       state.filtroTodas = !!action.payload;
