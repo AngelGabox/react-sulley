@@ -1,83 +1,77 @@
-// src/features/actividades/actividadesApi.js
-import { api } from '../api/apiSlicer'; // tu base (con prepareHeaders que añade Authorization)
+import { api } from '../api/apiSlicer';
 
 export const actividadesApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    // Listar actividades del curso (del profe actual por defecto o de todos con ?todas=1)
     getActividadesPorCurso: builder.query({
-      query: ({ cursoId, todas = 0 }) =>
-        `actividades/curso/${cursoId}/?todas=${todas ? 1 : 0}`,
-      providesTags: (result, error, { cursoId }) => [
-        { type: 'Actividades', id: `curso-${cursoId}` },
-      ],
+      query: ({ cursoId, todas = 0 }) => `actividades/curso/${cursoId}/?todas=${todas}`,
     }),
 
-    // Crear actividad en un curso (y asigna a todos los estudiantes del curso)
     crearActividadEnCurso: builder.mutation({
       query: ({ cursoId, payload }) => ({
         url: `actividades/curso/${cursoId}/crear/`,
         method: 'POST',
-        body: payload, // { titulo, descripcion, fecha, fecha_entrega?, cpm_id }
+        body: payload,
       }),
-      invalidatesTags: (result, error, { cursoId }) => [
-        { type: 'Actividades', id: `curso-${cursoId}` },
+    }),
+
+    // Entregas desde la tabla relación (server-side filter)
+    getEntregasByActividad: builder.query({
+      query: ({ actividadId, estado = 'entregadas' }) =>
+        `actividades/actividad/${actividadId}/entregas/?estado=${estado}`,
+      providesTags: (r, e, args) => [{ type: 'Entregas', id: `${args.actividadId}:${args.estado}` }],
+    }),
+
+    actualizarEntrega: builder.mutation({
+      query: ({ actividadEstudianteId, data }) => ({
+        url: `actividades/entrega/${actividadEstudianteId}/`,
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: (r, e, { actividadId }) => [
+        { type: 'Entregas', id: `${actividadId}:entregadas` },
+        { type: 'Entregas', id: `${actividadId}:pendientes` },
+        { type: 'Entregas', id: `${actividadId}:todas` },
       ],
     }),
 
-    // Detalle con entregas por estudiante
-    getDetalleActividad: builder.query({
-      query: (actividadId) => `actividades/${actividadId}/detalle/`,
-      providesTags: (result, error, actividadId) => [
-        { type: 'Actividad', id: actividadId },
-        { type: 'Entregas', id: `actividad-${actividadId}` },
+    // Subir archivo de entregable (cuando lo uses)
+    subirEntregable: builder.mutation({
+      query: ({ actividadEstudianteId, formData }) => ({
+        url: `actividades/entrega/${actividadEstudianteId}/archivo/`,
+        method: 'POST',
+        body: formData, // FormData con key 'entregable'
+      }),
+      invalidatesTags: (r, e, { actividadId }) => [
+        { type: 'Entregas', id: `${actividadId}:entregadas` },
+        { type: 'Entregas', id: `${actividadId}:pendientes` },
+        { type: 'Entregas', id: `${actividadId}:todas` },
       ],
     }),
 
-    // Actualizar fecha de entrega / texto / etc. de la actividad
+    // >>> NUEVOS: actualizar y eliminar actividad
     actualizarActividad: builder.mutation({
       query: ({ actividadId, data }) => ({
         url: `actividades/${actividadId}/`,
         method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: (r, e, { actividadId }) => [
-        { type: 'Actividad', id: actividadId },
-        { type: 'Entregas', id: `actividad-${actividadId}` },
-      ],
     }),
 
-    // Eliminar actividad
     eliminarActividad: builder.mutation({
       query: (actividadId) => ({
         url: `actividades/${actividadId}/`,
         method: 'DELETE',
       }),
-      invalidatesTags: (r, e, actividadId) => [
-        { type: 'Actividad', id: actividadId },
-        { type: 'Entregas', id: `actividad-${actividadId}` },
-      ],
-    }),
-
-    // Actualizar entrega/calificación de un estudiante (no duplica registros)
-    actualizarEntrega: builder.mutation({
-      query: ({ actividadEstudianteId, data }) => ({
-        url: `actividades/entrega/${actividadEstudianteId}/`,
-        method: 'PATCH',
-        body: data, // { entregado_en?, calificacion? }
-      }),
-      invalidatesTags: (r, e, { actividadEstudianteId, actividadId }) => [
-        { type: 'Entregas', id: `actividad-${actividadId}` },
-      ],
     }),
   }),
-  overrideExisting: false,
 });
 
 export const {
   useGetActividadesPorCursoQuery,
   useCrearActividadEnCursoMutation,
-  useGetDetalleActividadQuery,
+  useGetEntregasByActividadQuery,
+  useActualizarEntregaMutation,
+  useSubirEntregableMutation,
   useActualizarActividadMutation,
   useEliminarActividadMutation,
-  useActualizarEntregaMutation,
 } = actividadesApi;
