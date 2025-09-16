@@ -1,11 +1,13 @@
+//src/features/people/personApi.js
 import { api } from "../api/apiSlicer"; 
 
 export const personApi = api.injectEndpoints({
-
   endpoints: (builder) => ({
     getMyPersona: builder.query({
-      query: () => 'personas/me/', // <- endpoint nuevo
+      query: () => 'personas/me/',
+      providesTags: ['Persona'],
     }),
+
     updateMyPersona: builder.mutation({
       query: (patchBody) => ({
         url: 'personas/me/',
@@ -14,45 +16,60 @@ export const personApi = api.injectEndpoints({
       }),
       invalidatesTags: ['Persona'],
     }),
-    // Obtener todos las personas
+
+    // LISTA
     getPeople: builder.query({
       query: () => 'personas/',
-      providesTags: ['People'],
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map((p) => ({ type: 'People', id: p.id })),
+              { type: 'People', id: 'LIST' },
+            ]
+          : [{ type: 'People', id: 'LIST' }],
     }),
 
-    // Obtener un estudiante por ID
+    // DETALLE
     getPersonById: builder.query({
       query: (id) => `personas/${id}/`,
-      providesTags: (result, error, id) => [{ type: 'People', id }],
+      providesTags: (r, e, id) => [{ type: 'People', id }],
     }),
 
-    // Crear estudiante
+    // CREAR
     createPerson: builder.mutation({
       query: (newPerson) => ({
         url: 'personas/',
         method: 'POST',
         body: newPerson,
       }),
-      invalidatesTags: ['People'],
+      invalidatesTags: [{ type: 'People', id: 'LIST' }],
     }),
 
-    // Actualizar persona
+    // ACTUALIZAR  <<< CAMBIO: usar PATCH y no enviar 'usuario' desde el form
     updatePerson: builder.mutation({
       query: ({ id, ...data }) => ({
         url: `personas/${id}/`,
-        method: 'PUT',
+        method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: 'People', id }],
+      invalidatesTags: (r, e, { id }) => [
+        { type: 'People', id },
+        { type: 'People', id: 'LIST' },
+      ],
     }),
 
-    // Eliminar persona
+    // ELIMINAR
     deletePerson : builder.mutation({
       query: (id) => ({
         url: `personas/${id}/`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [{ type: 'People', id }],
+      invalidatesTags: (r, e, id) => [
+        { type: 'People', id },
+        { type: 'People', id: 'LIST' },
+      ],
     }),
 
     searchPeople: builder.query({
@@ -60,28 +77,21 @@ export const personApi = api.injectEndpoints({
     }),
 
     importarEstudiantes: builder.mutation({
-      /**
-       * Espera un File (xlsx o csv). Construimos el FormData aquí.
-       */
       query: (file) => {
         const formData = new FormData();
         formData.append('file', file);
-
         return {
-          url: 'personas/importar-estudiantes/',  // <-- DRF
+          url: 'personas/importar-estudiantes/',
           method: 'POST',
           body: formData,
         };
       },
-      // invalidar lo que necesites refrescar (ajústalo a tu proyecto)
-      invalidatesTags: ['Estudiantes', 'Personas', 'PersonaEstudiante'],
+      invalidatesTags: ['People'],
     }),
-
   }),
   overrideExisting: false,
 });
 
-// Exporta los hooks listos para usar en componentes
 export const {
   useGetMyPersonaQuery,
   useGetPeopleQuery,

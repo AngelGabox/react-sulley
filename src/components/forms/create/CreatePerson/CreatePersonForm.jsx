@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useCreatePersonMutation } from '../../../../features/people/personApi';
 import '../../GeneralForm.css';
 
-const CreatePersonForm = () => {
+const CreatePersonForm = ({onClose}) => {
   const [params] = useSearchParams();
   const preRol = params.get('new') === 'acudiente' ? 'Acudiente' : '';
 
@@ -64,6 +64,7 @@ const CreatePersonForm = () => {
       
       await createPerson(payload).unwrap();
       alert('Persona creada con éxito');
+      onClose()
     } catch (error) {
       console.error(error);
       alert('Error al crear persona');

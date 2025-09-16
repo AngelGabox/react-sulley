@@ -1,50 +1,88 @@
 // src/features/students/studentApi.js
-import { api } from "../api/apiSlicer"; 
+import { api } from "../api/apiSlicer";
 
 export const studentApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    
-    // Obtener todos los estudiantes
+    // LISTA
     getStudents: builder.query({
-      query: () => 'estudiantes/',
-      providesTags: ['Students'],
+      query: () => 'estudiantes/', // ajusta si tu endpoint cambia
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map((s) => ({ type: 'Students', id: s.id })),
+              { type: 'Students', id: 'LIST' },
+            ]
+          : [{ type: 'Students', id: 'LIST' }],
     }),
 
-    // Obtener un estudiante por ID
+    // DETALLE
     getStudentById: builder.query({
       query: (id) => `estudiantes/${id}/`,
-      providesTags: (result, error, id) => [{ type: 'Students', id }],
+      providesTags: (r, e, id) => [{ type: 'Students', id }],
     }),
 
-    // Crear estudiante
+    // CREAR (con optimistic update)
     createStudent: builder.mutation({
       query: (newStudent) => ({
         url: 'estudiantes/',
         method: 'POST',
         body: newStudent,
       }),
-      invalidatesTags: ['Students'],
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        // 1) Optimista: inserta una fila temporal al inicio de la cache
+        const tempId = Math.floor(Math.random() * -1e9); // id negativo temporal
+        const patch = dispatch(
+          studentApi.util.updateQueryData('getStudents', undefined, (draft) => {
+            draft.unshift({ id: tempId, ...arg });
+          })
+        );
+        try {
+          // 2) Cuando llega la respuesta, reemplaza la fila temporal por la real
+          const { data: created } = await queryFulfilled;
+          patch.undo();
+          dispatch(
+            studentApi.util.updateQueryData('getStudents', undefined, (draft) => {
+              draft.unshift(created);
+            })
+          );
+        } catch {
+          // 3) Si falla, deshace el optimista
+          patch.undo();
+        }
+      },
+      // Además invalidamos la LIST para asegurar consistencia (paginación, etc.)
+      invalidatesTags: [{ type: 'Students', id: 'LIST' }],
     }),
 
-    // Actualizar estudiante
+    // ACTUALIZAR
     updateStudent: builder.mutation({
       query: ({ id, ...data }) => ({
         url: `estudiantes/${id}/`,
-        method: 'PUT',
+        method: 'PUT', // o 'PATCH' si tu API lo prefiere
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: 'Students', id }],
+      invalidatesTags: (r, e, { id }) => [
+        { type: 'Students', id },
+        { type: 'Students', id: 'LIST' },
+      ],
     }),
 
-    // Eliminar estudiante
+    // ELIMINAR
     deleteStudent: builder.mutation({
       query: (id) => ({
         url: `estudiantes/${id}/`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [{ type: 'Students', id }],
+      // Quita por-id y la LIST para refrescar
+      invalidatesTags: (r, e, id) => [
+        { type: 'Students', id },
+        { type: 'Students', id: 'LIST' },
+      ],
     }),
 
+    // ACUDIENTES (si lo usas en la tabla)
     getStudentGuardians: builder.query({
       query: (id) => `estudiantes/${id}/acudientes/`,
       providesTags: (r, e, id) => [{ type: 'Guardians', id }],
@@ -68,7 +106,6 @@ export const studentApi = api.injectEndpoints({
   overrideExisting: false,
 });
 
-// Exporta los hooks listos para usar en componentes
 export const {
   useGetStudentsQuery,
   useGetStudentByIdQuery,
@@ -79,6 +116,7 @@ export const {
   useAddGuardianToStudentMutation,
   useRemoveGuardianFromStudentMutation,
 } = studentApi;
+
 
 // | Variable     | Tipo      | ¿Para qué sirve?                                                             |
 // | ------------ | --------- | ---------------------------------------------------------------------------- |

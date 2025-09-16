@@ -1,4 +1,4 @@
-// src/pages/Admin.jsx
+// src/components/views/Admin/Admin.jsx
 import React, { useState } from 'react';
 
 import MenuAdmin from '../../container/Menu/MenuAdmin/MenuAdmin';
@@ -13,10 +13,10 @@ import CreatePerson from '../../forms/create/CreatePerson/CreatePersonForm'
 import UpdatePersonForm from '../../forms/update/UpdatePersonForm/UpdatePersonForm';
 
 import Modal from '../../container/Modal/Modal';
-import "./Admin.css"
+import "./css/Admin.css"
 import MateriasManager from '../../container/MateriasManager/MateriasManager';
 import AsignacionesCrud from './AsignacionesCrud';
-
+import EventsAdmin from './EventsAdmin';
 
 const Admin = () => {
   // Ventana Modal reutilizanle
@@ -50,10 +50,12 @@ const Admin = () => {
 
   
 
-  const [view, setView] = useState('estudiantes');
+  const [view, setView] = useState('');
 
   const renderView = () => {
     switch (view) {
+      case 'eventos':
+        return <EventsAdmin />
       case 'estudiantes':
         return <>
                      {/* Barra de búsqueda y botón de agregar */}
@@ -101,8 +103,11 @@ const Admin = () => {
             </>
           )
       default:
+        // return <p>Seleccione una opción del menú</p>
+        
         return <p>Seleccione una opción del menú</p>
-    }
+      }
+
   
   };
 

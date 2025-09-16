@@ -1,3 +1,4 @@
+// src/components/container/TablaEstudiantes/TablaEstudiantes.jsx
 import React, { useEffect  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEstudiantes } from '../../../features/students/studentSlice';
@@ -7,26 +8,25 @@ import "./TablaEstudiantes.css"
 
 const TablaEstudiantes = ({handleEdit}) => {
   const dispatch = useDispatch()
-  // console.log(useGetStudentsQuery());
   const estudiantes = useSelector(s=>s.student.estudiantes)
   const estudiantesFiltrados = useSelector(s=>s.student.estudiantesFiltrados)
   const { data, isSuccess, isLoading, isError } = useGetStudentsQuery();
-  // const useStudents = useGetStudentsQuery();
   const [ deleteStudent ] = useDeleteStudentMutation()
 
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setEstudiantes(data));
+    }
+  }, [isSuccess, data, dispatch, estudiantes.length, estudiantesFiltrados.length]);
 
-useEffect(() => {
-  if (isSuccess && estudiantes.length === 0) {
-    dispatch(setEstudiantes(data));
-  }
-}, [isSuccess, data, dispatch, estudiantes.length, estudiantesFiltrados.length]);
+  if (isLoading) return <p>Cargando estudiantes...</p>;
+  if (isError) return <p>Error al cargar estudiantes</p>;
 
-if (isLoading) return <p>Cargando estudiantes...</p>;
-if (isError) return <p>Error al cargar estudiantes</p>;
-
-const handleDelete = (id) => {
+  const handleDelete = (id) => {
     deleteStudent(id)
-}
+  }
+
+  const lista = (estudiantesFiltrados.length>0 ? estudiantesFiltrados : estudiantes);
 
   return (
   <div className="student">
@@ -37,8 +37,10 @@ const handleDelete = (id) => {
           <th>ID</th>
           <th>Nombre</th>
           <th>Apellido</th>
+          <th>Tipo Doc</th>
+          <th>Documento</th>
           <th>Correo</th>
-          <th>Direccion</th>
+          <th>Dirección</th>
           <th>Fecha Nacimiento</th>
           <th>Curso</th>
           <th>Acudiente</th>
@@ -46,11 +48,13 @@ const handleDelete = (id) => {
         </tr>
       </thead>
       <tbody>
-        {(estudiantesFiltrados.length>0?estudiantesFiltrados:estudiantes).map(est => (
+        {lista.map(est => (
           <tr key={est.id}>
             <td>{est.id}</td>
             <td>{est.nombre}</td>
             <td>{est.apellido}</td>
+            <td>{est.tipo_documento || '—'}</td>
+            <td>{est.numero_documento || '—'}</td>
             <td>{est.correo_electronico}</td>
             <td>{est.direccion}</td>
             <td>{est.fecha_nacimiento}</td>
@@ -60,8 +64,8 @@ const handleDelete = (id) => {
             </td>
             <td>
               <div className="btn-group">
-                  <a href="#" className="btn" onClick={()=>handleEdit(est)}><i className="fas fa-edit"></i></a>
-                  <a href="#" className="btn" onClick={()=>handleDelete(est.id)} ><i className="fas fa-trash"></i></a>
+                  <button className="btn" onClick={()=>handleEdit(est)}><i className="fas fa-edit"></i></button>
+                  <button className="btn" onClick={()=>handleDelete(est.id)} ><i className="fas fa-trash"></i></button>
               </div>
             </td>
           </tr>

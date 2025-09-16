@@ -1,7 +1,8 @@
+// src/components/container/TablaPersonas/TablaPersonas.jsx
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPeople } from '../../../features/people/personSlice';
-import { useGetPeopleQuery, useDeletePersonMutation} from '../../../features/people/personApi';
+import { useGetPeopleQuery, useDeletePersonMutation } from '../../../features/people/personApi';
 import "./TablaPersonas.css";
 
 const TablaPersonas = ({ handleEdit }) => {
@@ -13,18 +14,25 @@ const TablaPersonas = ({ handleEdit }) => {
   const [deletePerson] = useDeletePersonMutation();
 
   useEffect(() => {
-    if (isSuccess && personas.length === 0) {
+    if (isSuccess && data) {
       dispatch(setPeople(data));
     }
-  }, [isSuccess, data, dispatch, personas.length, personasFiltradas.length]);
+  }, [isSuccess, data, dispatch]);
 
   if (isLoading) return <p>Cargando personas...</p>;
   if (isError) return <p>Error al cargar personas</p>;
 
-  const handleDelete = (id) => {
-    deletePerson(id);
+  const handleDelete = async (id) => {
+    if (!confirm('¿Eliminar esta persona?')) return;
+    try {
+      await deletePerson(id).unwrap();
+    } catch (e) {
+      console.error(e);
+      alert('No se pudo eliminar la persona');
+    }
   };
 
+  const lista = (personasFiltradas.length > 0 ? personasFiltradas : personas) || [];
 
   return (
     <div className="persona">
@@ -45,29 +53,35 @@ const TablaPersonas = ({ handleEdit }) => {
           </tr>
         </thead>
         <tbody>
-          {(personasFiltradas.length>0?personasFiltradas:personas).map(per =>(
+          {lista.map((per) => (
             <tr key={per.id}>
               <td>{per.id}</td>
               <td>{per.nombre}</td>
               <td>{per.apellido}</td>
               <td>{per.tipo_documento}</td>
               <td>{per.numero_documento}</td>
-              <td>{per.email}</td>
+              {/* email puede venir del usuario anidado */}
+              <td>{per.usuario?.email ?? per.email ?? '—'}</td>
               <td>{per.direccion}</td>
               <td>{per.telefono}</td>
-              <td>{per.rol}</td>
+              <td>{per.usuario?.rol ?? per.rol ?? '—'}</td>
               <td>
                 <div className="btn-group">
-                  <a className="btn" onClick={() => handleEdit(per)}>
+                  <button type="button" className="btn" onClick={() => handleEdit(per)}>
                     <i className="fas fa-edit"></i>
-                  </a>
-                  <a className="btn" onClick={() => handleDelete(per.id_persona)}>
+                  </button>
+                  <button type="button" className="btn" onClick={() => handleDelete(per.id)}>
                     <i className="fas fa-trash"></i>
-                  </a>
+                  </button>
                 </div>
               </td>
             </tr>
           ))}
+          {lista.length === 0 && (
+            <tr>
+              <td colSpan={10}>No hay personas.</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

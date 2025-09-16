@@ -1,37 +1,34 @@
+// src/features/materias/materiasApi.js
 import { api } from "../api/apiSlicer";
 
 export const materiasApi = api.injectEndpoints({
-  endpoints: builder => ({
+  endpoints: (builder) => ({
 
-
-    // Obtener Materias
+    // Listar Materias
     getMaterias: builder.query({
-      query: () => '/materias/',
+      query: () => 'materias/',
       providesTags: ['Materias'],
     }),
 
-
-    // Crear Materias
+    // Crear Materia
     createMateria: builder.mutation({
-      query: newM => ({
-        url: '/materias/',
+      query: (newM) => ({
+        url: 'materias/',
         method: 'POST',
         body: newM,
       }),
       invalidatesTags: ['Materias'],
     }),
 
-
     // Actualizar Materia
     updateMateria: builder.mutation({
       query: ({ id, ...data }) => ({
-        url: `/materias/${id}`,
+        url: `materias/${id}/`,
         method: 'PUT',
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: 'Materias', id }]
+      invalidatesTags: ['Materias'],
     }),
-
 
     // Eliminar Materia
     deleteMateria: builder.mutation({
@@ -39,14 +36,14 @@ export const materiasApi = api.injectEndpoints({
         url: `materias/${id}/`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, id) => [{ type: 'Materias', id }],
+      invalidatesTags: ['Materias'],
     }),
   }),
 });
 
-export const { 
-    useGetMateriasQuery, 
-    useCreateMateriaMutation, 
-    useUpdateMateriaMutation,
-    useDeleteMateriaMutation,
+export const {
+  useGetMateriasQuery,
+  useCreateMateriaMutation,
+  useUpdateMateriaMutation,
+  useDeleteMateriaMutation,
 } = materiasApi;

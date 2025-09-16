@@ -1,14 +1,30 @@
-import React from 'react';
+//src/components/views/Home/Home.jsx
+import {useEffect} from 'react';
 import './Home.css';
+import logo from "../../../assets/logo.png"
 
 const Home = () => {
+
+  useEffect(() => {
+    const root = document.getElementById('root');
+    if (!root) return;
+    const prevOverflow = root.style.overflow;
+    root.style.overflow = 'auto';
+    // opcional: clase para estilos específicos
+    root.classList.add('root-scroll-enabled');
+
+    return () => {
+      root.style.overflow = prevOverflow;
+      root.classList.remove('root-scroll-enabled');
+    };
+  }, []);
   return (
-    <main className='home'>
+    <div className='home'>
       {/* NAV */}
       <header className="nav">
         <div className="wrap nav-inner">
           <a className="brand" href="#inicio">
-            <img src="/Imagen/logojardin.jpg" alt="Jardín Sullivan Logo" />
+            <img src={logo} alt="Jardín Sullivan Logo" />
           </a>
 
           <nav className="nav-links">
@@ -234,7 +250,7 @@ const Home = () => {
           <a href="#inicio" className="btn-to-top">↑ Inicio</a>
         </div>
       </footer>
-    </main>
+    </div>
   );
 };
 

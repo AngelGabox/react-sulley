@@ -1,8 +1,6 @@
-/* Layout base */
 .home
 {
-    overflow: auto;
-    height: min-content;
+  min-height: 100vh;
 }
 .wrap {
   width: 1200px;

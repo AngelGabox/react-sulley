@@ -1,7 +1,7 @@
 // src/components/admin/ImportEstudiantes.jsx
 import React, { useState } from 'react';
 import { useImportarEstudiantesMutation } from '../../../features/people/personApi';
-import './ImportEstudiantes.css';
+import './css/ImportEstudiantes.css';
 
 const ImportEstudiantes = () => {
   const [file, setFile] = useState(null);

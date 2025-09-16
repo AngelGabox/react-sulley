@@ -4,7 +4,7 @@ import TablaEstudiantes from '../components/container/TablaEstudiantes/TablaEstu
 import Admin from '../components/views/Admin/Admin'
 import MenuAdmin from '../components/container/Menu/MenuAdmin/MenuAdmin'
 import Login from '../components/views/Login/Login'
-import RequireAuth from '../hooks/RequireAutn'
+import RequireAuth from '../hooks/RequireAuth'
 import Home from "../components/views/Home/Home"
 
 import Profe  from '../components/views/Profe/Profe'

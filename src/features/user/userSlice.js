@@ -1,10 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-   user: null,       // { id, username, email, rol, ... }
-  persona: null,    // { id, nombre, apellido, ... }
+  user: null,
+  persona: null,
   access: null,
   refresh: null,
+};
+
+const normalizeStoredToken = (t) => {
+  if (!t) return null;
+  if (t === 'undefined' || t === 'null') return null;
+  return t;
 };
 
 const userSlice = createSlice({
@@ -12,25 +18,25 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setCredentials(state, action) {
-      const { user, access, refresh } = action.payload
-      state.user = user || null;
-      state.access = access || null;
-      state.refresh = refresh || null;
+      const { user, access, refresh } = action.payload;
+      if (user !== undefined) state.user = user; // permite actualizar solo tokens
+      if (access !== undefined) state.access = access || null;
+      if (refresh !== undefined) state.refresh = refresh || null;
     },
-    setPersona: (state, action) => {
+    setPersona(state, action) {
       state.persona = action.payload || null;
     },
-    hydrateFromStorage: (state) => {
+    hydrateFromStorage(state) {
       try {
         const stUser = sessionStorage.getItem('user');
         const stPersona = sessionStorage.getItem('persona');
-        const access = localStorage.getItem('access');
-        const refresh = localStorage.getItem('refresh');
+        const access = normalizeStoredToken(localStorage.getItem('access'));
+        const refresh = normalizeStoredToken(localStorage.getItem('refresh'));
         if (stUser) state.user = JSON.parse(stUser);
         if (stPersona) state.persona = JSON.parse(stPersona);
-        state.access = access || null;
-        state.refresh = refresh || null;
-      } catch(err) {
+        state.access = access;
+        state.refresh = refresh;
+      } catch (err) {
         console.log('hydrateFromStorage: ', err);
       }
     },
@@ -44,9 +50,8 @@ const userSlice = createSlice({
       sessionStorage.removeItem('user');
       sessionStorage.removeItem('persona');
     },
-
   },
 });
 
-export const { setCredentials, setPersona, hydrateFromStorage, logout, logoutUser } = userSlice.actions;
+export const { setCredentials, setPersona, hydrateFromStorage, logoutUser } = userSlice.actions;
 export default userSlice.reducer;

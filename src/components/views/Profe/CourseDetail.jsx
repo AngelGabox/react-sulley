@@ -81,17 +81,8 @@ const CourseDetail = () => {
           <span className="cd-curso">{cpm.curso?.nombre_curso}</span>
         </div>
 
-        <div className="cd-actions">
-          <button
-            className="cd-primary"
-            type="button"
-            onClick={() => setTab('asistencia')}
-            title="Ir a asistencia de hoy"
-          >
-            Tomar asistencia hoy
-          </button>
           {/* Iconos/acciones extra podrían ir aquí */}
-        </div>
+        {/* <div className="cd-actions"></div> */}
       </header>
 
       {/* Subtítulo con materia */}

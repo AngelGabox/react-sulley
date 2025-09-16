@@ -1,6 +1,6 @@
 .course-detail { padding: 1.25rem; }
 .cd-header { display:flex; justify-content:space-between; align-items:center; margin-bottom: .75rem; }
-.cd-breadcrumb { font-size: 1.1rem; font-weight: 600; }
+.cd-breadcrumb { font-size: 2rem; font-weight: 600; }
 .cd-crumb { opacity: .75; }
 .cd-sep { margin: 0 .5rem; opacity: .5; }
 .cd-curso { font-weight: 700; }
