@@ -4,13 +4,14 @@ import { useSelector } from 'react-redux';
 import './css/CourseDetail.css';
 import Attendance from './Attendance';
 import Activities from './Activities';
+import Notas from './Notas';
 
 const CourseDetail = () => {
   // Curso/Materia seleccionados desde Redux
   const cpm = useSelector((s) => s.courses.curso_profesor_materia);
   
   // Tabs: resumen | asistencia | notas | actividades | estudiantes | archivos
-  const [tab, setTab] = useState('resumen');
+  const [tab, setTab] = useState('asistencia');
   
   const TabBtn = ({ id, children }) => (
     <button
@@ -24,13 +25,13 @@ const CourseDetail = () => {
   
   const renderTabContent = () => {
     switch (tab) {
-      case 'resumen':
-        return (
-          <div className="cd-panel">
-            <h3>Resumen</h3>
-            <p>Próximamente: tarjetas con estudiantes, % asistencia, promedio, etc.</p>
-          </div>
-        );
+      // case 'resumen':
+      //   return (
+      //     <div className="cd-panel">
+      //       <h3>Resumen</h3>
+      //       <p>Próximamente: tarjetas con estudiantes, % asistencia, promedio, etc.</p>
+      //     </div>
+      //   );
         case 'asistencia':
           return (
             <>
@@ -40,8 +41,7 @@ const CourseDetail = () => {
         case 'notas':
           return (
             <div className="cd-panel">
-            <h3>Notas</h3>
-            <p>Tabla de calificaciones y promedios (pendiente de implementar).</p>
+             <Notas></Notas>
           </div>
         );
         case 'actividades':
@@ -56,13 +56,6 @@ const CourseDetail = () => {
             <div className="cd-panel">
             <h3>Estudiantes</h3>
             <p>Listado de estudiantes del curso (pendiente de implementar).</p>
-          </div>
-        );
-        case 'archivos':
-          return (
-            <div className="cd-panel">
-            <h3>Archivos</h3>
-            <p>Material del curso (pendiente de implementar).</p>
           </div>
         );
         default:
@@ -92,12 +85,10 @@ const CourseDetail = () => {
 
       {/* Mini Navbar (tabs) */}
       <nav className="cd-tabs">
-        <TabBtn id="resumen">Resumen</TabBtn>
+        <TabBtn id="estudiantes">Estudiantes</TabBtn>
         <TabBtn id="asistencia">Asistencia</TabBtn>
         <TabBtn id="notas">Notas</TabBtn>
         <TabBtn id="actividades">Actividades</TabBtn>
-        <TabBtn id="estudiantes">Estudiantes</TabBtn>
-        <TabBtn id="archivos">Archivos</TabBtn>
       </nav>
 
       {/* Contenido de cada tab */}

@@ -33,20 +33,25 @@ const MenuProfe = ({setView}) => {
               <span className="text">Cursos</span>
             </li>
             
-            <li onClick={()=>setView("asistencia")}>
+            {/* <li onClick={()=>setView("asistencia")}>
               <span className='icon'><ion-icon name="hand-left-outline"></ion-icon></span>
               <span className="text">Asistencia</span>
             </li>
-            
+             */}
             <li onClick={()=>setView("actividades")}>
               <span className="icon"><ion-icon name="book-outline"></ion-icon></span>
-              <span className="text">Actividades</span>
+              <span className="text">Eventos</span>
             </li>
 
             <li onClick={showUserProfile}>
             {/* <li onClick={()=>setView("perfil")}>Perfil</li> */}
               <span className="icon"><ion-icon name="person-outline"></ion-icon></span>
               <span className="text">Perfil</span>
+            </li>
+
+            <li onClick={()=>setView("cerrarsesion")}>
+              <span className="icon"><ion-icon name="book-outline"></ion-icon></span>
+              <span className="text">Cerrar Sesion</span>
             </li>
         </ul>
       </div>

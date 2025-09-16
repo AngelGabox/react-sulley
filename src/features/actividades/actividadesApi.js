@@ -14,11 +14,13 @@ export const actividadesApi = api.injectEndpoints({
       }),
     }),
 
-    // Entregas desde la tabla relación (server-side filter)
+    // ✅ CORREGIDO: ruta debe incluir "actividad/"
     getEntregasByActividad: builder.query({
       query: ({ actividadId, estado = 'entregadas' }) =>
         `actividades/actividad/${actividadId}/entregas/?estado=${estado}`,
-      providesTags: (r, e, args) => [{ type: 'Entregas', id: `${args.actividadId}:${args.estado}` }],
+      providesTags: (r, e, args) => [
+        { type: 'Entregas', id: `${args.actividadId}:${args.estado}` },
+      ],
     }),
 
     actualizarEntrega: builder.mutation({
@@ -34,12 +36,11 @@ export const actividadesApi = api.injectEndpoints({
       ],
     }),
 
-    // Subir archivo de entregable (cuando lo uses)
     subirEntregable: builder.mutation({
       query: ({ actividadEstudianteId, formData }) => ({
         url: `actividades/entrega/${actividadEstudianteId}/archivo/`,
         method: 'POST',
-        body: formData, // FormData con key 'entregable'
+        body: formData,
       }),
       invalidatesTags: (r, e, { actividadId }) => [
         { type: 'Entregas', id: `${actividadId}:entregadas` },
@@ -48,7 +49,6 @@ export const actividadesApi = api.injectEndpoints({
       ],
     }),
 
-    // >>> NUEVOS: actualizar y eliminar actividad
     actualizarActividad: builder.mutation({
       query: ({ actividadId, data }) => ({
         url: `actividades/${actividadId}/`,
@@ -63,6 +63,11 @@ export const actividadesApi = api.injectEndpoints({
         method: 'DELETE',
       }),
     }),
+
+    // Matriz de calificaciones por curso
+    getMatrizCalificacionesPorCurso: builder.query({
+      query: ({ cursoId, todas = 0 }) => `actividades/curso/${cursoId}/matriz/?todas=${todas}`,
+    }),
   }),
 });
 
@@ -74,4 +79,5 @@ export const {
   useSubirEntregableMutation,
   useActualizarActividadMutation,
   useEliminarActividadMutation,
+  useGetMatrizCalificacionesPorCursoQuery,
 } = actividadesApi;
