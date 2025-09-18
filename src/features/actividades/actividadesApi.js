@@ -14,7 +14,6 @@ export const actividadesApi = api.injectEndpoints({
       }),
     }),
 
-    // ✅ CORREGIDO: ruta debe incluir "actividad/"
     getEntregasByActividad: builder.query({
       query: ({ actividadId, estado = 'entregadas' }) =>
         `actividades/actividad/${actividadId}/entregas/?estado=${estado}`,
@@ -68,6 +67,12 @@ export const actividadesApi = api.injectEndpoints({
     getMatrizCalificacionesPorCurso: builder.query({
       query: ({ cursoId, todas = 0 }) => `actividades/curso/${cursoId}/matriz/?todas=${todas}`,
     }),
+
+     getEntregasPorEstudiante: builder.query({
+      query: ({ estudianteId, estado = 'todas' }) =>
+        `actividades/estudiante/${estudianteId}/?estado=${estado}`,
+      providesTags: (r,e,args) => [{ type: 'Entregas', id: `est-${args.estudianteId}:${args.estado}` }],
+    }),
   }),
 });
 
@@ -80,4 +85,5 @@ export const {
   useActualizarActividadMutation,
   useEliminarActividadMutation,
   useGetMatrizCalificacionesPorCursoQuery,
+  useGetEntregasPorEstudianteQuery,
 } = actividadesApi;

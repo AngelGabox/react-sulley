@@ -11,6 +11,9 @@ import Profe  from '../components/views/Profe/Profe'
 import ResetPasswordConfirm from '../components/views/Auth/ResetPasswordConfirm'
 import ResetPasswordRequest from '../components/views/Auth/ResetPasswordRequest'
 import ImportEstudiantes from '../components/views/Admin/ImportEstudiantes'
+import Acudiente from '../components/views/Acudiente/Acudiente'
+import EstudianteDetalle from '../components/views/Acudiente/EstudianteDetalle'
+
 const index = () => {
   return (
     <>
@@ -29,13 +32,19 @@ const index = () => {
         } />
         <Route path="/admin/importar-estudiantes" element={<ImportEstudiantes/>} />
 
-        {/* <Route
+        <Route
           path="/acudiente/*" element={
             <RequireAuth>
-              <AcudienteDashboard />
+              <Acudiente/>
             </RequireAuth>
           }
-        /> */}
+        />
+        <Route path="/acudiente/estudiante/:id" element={
+          <RequireAuth>
+            <EstudianteDetalle/> 
+          </RequireAuth>
+        }/> 
+        
         <Route path='/profesor' element={
           <RequireAuth>
             <Profe/>

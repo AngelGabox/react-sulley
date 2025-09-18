@@ -1,8 +1,13 @@
 import React from 'react'
 import "./MenuProfe.css"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+import { logoutUser } from '../../../../features/user/userSlice'
 
 const MenuProfe = ({setView}) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const claseActiva = useSelector(s => s.clase?.current?.status === 'running');
   const usuario = useSelector(state => state.user.user);
   
@@ -10,6 +15,15 @@ const MenuProfe = ({setView}) => {
     setView("perfil");
     console.log("Usuario actual:", usuario);
   }
+
+    const logout = () => {
+    // Limpiar las credenciales
+    dispatch(logoutUser());
+
+    // Redirigir al login
+    navigate('/login', { replace: true });
+  };
+  
   return (
     <aside className="sidebar">
       <div className="profile">
@@ -49,7 +63,7 @@ const MenuProfe = ({setView}) => {
               <span className="text">Perfil</span>
             </li>
 
-            <li onClick={()=>setView("cerrarsesion")}>
+            <li onClick={logout}>
               <span className="icon"><ion-icon name="book-outline"></ion-icon></span>
               <span className="text">Cerrar Sesion</span>
             </li>

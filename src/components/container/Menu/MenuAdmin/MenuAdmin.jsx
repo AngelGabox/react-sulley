@@ -2,8 +2,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './MenuAdmin.css'; // Importa el CSS
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../../../../features/user/userSlice'
 
 const MenuAdmin = ({ setView, currentView }) => {

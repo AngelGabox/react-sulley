@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import MenuProfe from '../../container/Menu/MenuProfe/MenuProfe';
 import './css/Profe.css';
 
+
 import DashboardProfesor from './DashboardProfesor';
 import CoursesList from './CoursesList';
 import CourseDetail from './CourseDetail';
@@ -22,9 +23,8 @@ import {
 } from '../../../features/cursos/cursosSlice';
 
 const Profe = () => {
-  const dispatch = useDispatch();
-
-  // Estado local para controlar la "vista" actual
+  const dispatch = useDispatch()
+  // Estado local pa ra controlar la "vista" actual
   const [view, setView] = useState('inicio');
   
     // Estado local para almacenar el id del curso seleccionado
@@ -39,7 +39,7 @@ const Profe = () => {
   const { data: cursosData } = useGetCourseByTeacherQuery(
     profe ? profe.id : 2
   );
-  // console.log( cursosData);
+
   
 
   // Cuando selectedId cambia, disparamos la query para traer
