@@ -1,16 +1,12 @@
-// src/components/views/Acudiente/EstudianteCard.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-const EstudianteCard = ({ estudiante }) => {
-    const navigate = useNavigate();
-  // Estructura sugerida del backend:
-  // {
-  //   id, nombre, apellido, tipo_documento, numero_documento,
-  //   edad?: number, telefono, direccion, correo_electronico,
-  //   curso: { id, nombre_curso },
-  //   foto_url?: string,
-  //   acudiente_nombre?: string
-  // }
+import Modal from '../../container/Modal/Modal';
+import EditarEstudianteForm from './EditarEstudianteForm';
+
+const EstudianteCard = ({ estudiante, onUpdated }) => {
+  const navigate = useNavigate();
+  const [openEdit, setOpenEdit] = useState(false);
+
   const {
     nombre,
     apellido,
@@ -51,21 +47,31 @@ const EstudianteCard = ({ estudiante }) => {
         <button
           type="button"
           className="btn-primary"
-          onClick={() => alert('Abrir modal/forma de edición del estudiante')}
+          onClick={() => setOpenEdit(true)}
         >
           Editar Perfil
         </button>
+
         <button
-            type="button"
-            className="btn-secondary"
-            onClick={() => navigate(`/acudiente/estudiante/${estudiante.id}`, {
-                state: { estudiante } // opcional para no volver a pedir nombre
-            })}
-            style={{ marginTop: 8 }}
-            >
-            Ver actividades
+          type="button"
+          className="btn-secondary"
+          onClick={() => navigate(`/acudiente/estudiante/${estudiante.id}`, {
+            state: { estudiante }
+          })}
+          style={{ marginTop: 8 }}
+        >
+          Ver actividades
         </button>
       </aside>
+
+      {/* Modal con el formulario */}
+      <Modal isOpen={openEdit} onClose={() => setOpenEdit(false)}>
+        <EditarEstudianteForm
+          estudiante={estudiante}
+          onClose={() => setOpenEdit(false)}
+          onUpdated={onUpdated}  // opcional: el padre puede hacer refetch de "mis estudiantes"
+        />
+      </Modal>
     </div>
   );
 };

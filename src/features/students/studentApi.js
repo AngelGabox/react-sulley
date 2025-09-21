@@ -102,11 +102,41 @@ export const studentApi = api.injectEndpoints({
       }),
       invalidatesTags: (r, e, { studentId }) => [{ type: 'Guardians', id: studentId }],
     }),
+    uploadStudentAvatar: builder.mutation({
+      query: ({ estudianteId, file }) => {
+        const formData = new FormData();
+        formData.append('foto', file);
+        return {
+          url: `estudiantes/${estudianteId}/avatar/`,
+          method: 'POST',
+          body: formData,
+        };
+      },
+      invalidatesTags: ['Students'],
+    }),
+    deleteStudentAvatar: builder.mutation({
+      query: (estudianteId) => ({
+        url: `estudiantes/${estudianteId}/avatar/`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Students'],
+    }),
+    misEstudiantes: builder.query({
+      query: () => 'estudiantes/acudientes/mis-estudiantes',
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(s => ({ type: 'Students', id: s.id })),
+              { type: 'Students', id: 'MIS' },
+            ]
+          : [{ type: 'Students', id: 'MIS' }],
+    }),
   }),
   overrideExisting: false,
 });
 
 export const {
+  useMisEstudiantesQuery,
   useGetStudentsQuery,
   useGetStudentByIdQuery,
   useCreateStudentMutation,
@@ -115,6 +145,8 @@ export const {
   useGetStudentGuardiansQuery,
   useAddGuardianToStudentMutation,
   useRemoveGuardianFromStudentMutation,
+  useUploadStudentAvatarMutation,
+  useDeleteStudentAvatarMutation,
 } = studentApi;
 
 

@@ -52,7 +52,7 @@ const MenuProfe = ({setView}) => {
               <span className="text">Asistencia</span>
             </li>
              */}
-            <li onClick={()=>setView("actividades")}>
+            <li onClick={()=>setView("eventos")}>
               <span className="icon"><ion-icon name="book-outline"></ion-icon></span>
               <span className="text">Eventos</span>
             </li>

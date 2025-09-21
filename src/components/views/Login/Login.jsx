@@ -94,7 +94,7 @@ const Login = () => {
             {isLoading ? 'Cargando...' : 'Iniciar Sesion'}
           </button>
         </form>
-        <p> ¿No tienes una cuenta? <a href="/registro">Registrate</a></p>
+        <p> ¿No te acuerdas de tu contraseña? <a href="/cambiar-contraseña">Recuperar Contraseña</a></p>
       </div>
     </div>
   );

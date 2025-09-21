@@ -42,3 +42,61 @@
 .perfil-wrap{display:flex;gap:16px;align-items:center}
 .perfil-avatar img{width:84px;height:84px;border-radius:50%;object-fit:cover}
 .perfil-datos p{margin:.2rem 0}
+
+/* grid principal: contenido + rail derecho */
+.acu-grid {
+  display: grid;
+  grid-template-columns: minmax(680px, 2fr) 1fr;
+  gap: 24px;
+}
+
+/* tarjetas reutilizables */
+.acu-card {
+  background: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+.acu-card + .acu-card { margin-top: 16px; }
+
+.acu-card-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px;
+}
+.acu-card-head h4 { margin: 0; }
+
+.btn-link {
+  background: transparent; border: none; color: #1b5fcc; cursor: pointer;
+}
+
+/* rail derecho */
+.acu-rail { position: sticky; top: 12px; height: fit-content; }
+
+/* mini perfil */
+.acu-profile-mini {
+  display: flex; gap: 12px; align-items: center;
+}
+.acu-profile-mini img {
+  width: 48px; height: 48px; border-radius: 50%; object-fit: cover;
+  border: 1px solid #ddd;
+}
+.acu-profile-mini .name { font-weight: 700; }
+.muted { color: #6b7280; font-size: .9rem; }
+
+/* tabs pequeños usados en actividades del estudiante */
+.acu-tabs.small { margin-bottom: 8px; }
+.cd-tab { padding: 6px 10px; border-radius: 8px; border: 1px solid #e5e7eb; margin-right: 6px; }
+.cd-tab.active { background: #1b3158; border-color: #1b3158; color: #fff; }
+
+/* mesa tabla compartida (ya usas una) */
+.table-wrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 10px 8px; border-bottom: 1px solid #eee; }
+.table th { background: #f9fafb; text-align: left; font-weight: 700; }
+
+/* responsive */
+@media (max-width: 1100px) {
+  .acu-grid { grid-template-columns: 1fr; }
+  .acu-rail { position: static; }
+}

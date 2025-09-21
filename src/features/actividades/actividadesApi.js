@@ -36,17 +36,17 @@ export const actividadesApi = api.injectEndpoints({
     }),
 
     subirEntregable: builder.mutation({
-      query: ({ actividadEstudianteId, formData }) => ({
-        url: `actividades/entrega/${actividadEstudianteId}/archivo/`,
-        method: 'POST',
-        body: formData,
-      }),
-      invalidatesTags: (r, e, { actividadId }) => [
-        { type: 'Entregas', id: `${actividadId}:entregadas` },
-        { type: 'Entregas', id: `${actividadId}:pendientes` },
-        { type: 'Entregas', id: `${actividadId}:todas` },
-      ],
-    }),
+  query: ({ actividadEstudianteId, formData }) => ({
+    url: `actividades/entrega/${actividadEstudianteId}/archivo/`,
+    method: 'POST',
+    body: formData,
+  }),
+  invalidatesTags: (r, e, { estudianteId }) => [
+    { type: 'Entregas', id: `est-${estudianteId}:todas` },
+    { type: 'Entregas', id: `est-${estudianteId}:pendientes` },
+    { type: 'Entregas', id: `est-${estudianteId}:entregadas` },
+  ],
+}),
 
     actualizarActividad: builder.mutation({
       query: ({ actividadId, data }) => ({

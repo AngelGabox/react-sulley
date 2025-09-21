@@ -88,6 +88,27 @@ export const personApi = api.injectEndpoints({
       },
       invalidatesTags: ['People'],
     }),
+     uploadPersonaAvatar: builder.mutation({
+      query: ({ personaId, file }) => {
+        const formData = new FormData();
+        formData.append('foto', file);
+        return {
+          url: `personas/${personaId}/avatar/`,
+          method: 'POST',
+          body: formData,
+        };
+      },
+      invalidatesTags: ['People','Persona'],
+    }),
+    deletePersonaAvatar: builder.mutation({
+      query: (personaId) => ({
+        url: `personas/${personaId}/avatar/`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['People','Persona'],
+    }),
+
+
   }),
   overrideExisting: false,
 });
@@ -102,5 +123,7 @@ export const {
   useLazySearchPeopleQuery,
   useLazyGetMyPersonaQuery,
   useUpdateMyPersonaMutation,
-  useImportarEstudiantesMutation
+  useImportarEstudiantesMutation,
+  useUploadPersonaAvatarMutation,
+  useDeletePersonaAvatarMutation,
 } = personApi;

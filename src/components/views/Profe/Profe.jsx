@@ -21,6 +21,7 @@ import {
   setSelectedCourse,
   setCursoProfesorMateria
 } from '../../../features/cursos/cursosSlice';
+import EventCarousel from '../../widgets/EventCarousel';
 
 const Profe = () => {
   const dispatch = useDispatch()
@@ -91,8 +92,8 @@ const Profe = () => {
         return <CourseDetail />;
       case 'asistencia':
         return <Attendance />;
-      case 'actividades':
-        return <Activities />;
+      case 'eventos':
+        return <EventCarousel/>;
       case 'perfil':
         return <Profile />;
       default:

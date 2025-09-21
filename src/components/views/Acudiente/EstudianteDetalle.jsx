@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useLocation, useParams, Link } from 'react-router-dom';
 import { useGetEntregasPorEstudianteQuery, useSubirEntregableMutation } from '../../../features/actividades/actividadesApi';
+import FilePreview from '../../../components/common/FilePreview';
 import './css/Acudiente.css';
 
 const EstudianteDetalle = () => {
@@ -16,6 +17,10 @@ const EstudianteDetalle = () => {
 
   const [subirEntregable, { isLoading: uploading }] = useSubirEntregableMutation();
 
+  // estado del visor
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewFile, setPreviewFile] = useState(null);
+
   const onUpload = async (aeId, file) => {
     if (!file) return;
     const form = new FormData();
@@ -29,6 +34,15 @@ const EstudianteDetalle = () => {
     }
   };
 
+  const openPreview = (row) => {
+    setPreviewFile({
+      url: row.entregable_url,
+      mime: row.mime,
+      filename: row.filename,
+      downloadUrl: row.download_url,
+    });
+    setPreviewOpen(true);
+  };
   return (
     <section className="acu-panel">
       <div className="acu-breadcrumb" style={{ marginBottom: 12 }}>
@@ -80,10 +94,19 @@ const EstudianteDetalle = () => {
                       <td>
                         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                           {row.entregable_url ? (
-                            <a className="btn-secondary" href={row.entregable_url} target="_blank" rel="noreferrer">Ver</a>
-                          ) : (
-                            <span className="muted">Sin archivo</span>
-                          )}
+                              <>
+                                {/* Ver (previsualiza si es imagen/pdf; si no, muestra fallback) */}
+                                <button className="btn-secondary" onClick={() => openPreview(row)}>
+                                  Ver
+                                </button>
+                                {/* Descargar (forzado) */}
+                                <a className="btn" href={row.download_url}>
+                                  Descargar
+                                </a>
+                              </>
+                            ) : (
+                              <span className="muted">Sin archivo</span>
+                            )}
                           <label className="btn-primary" style={{ cursor: 'pointer' }}>
                             {row.entregable_url ? 'Reemplazar' : 'Subir'}
                             <input
@@ -104,6 +127,8 @@ const EstudianteDetalle = () => {
           )
         )}
       </div>
+      {/* Modal de previsualización */}
+      <FilePreview open={previewOpen} onClose={() => setPreviewOpen(false)} file={previewFile} />
     </section>
   );
 };

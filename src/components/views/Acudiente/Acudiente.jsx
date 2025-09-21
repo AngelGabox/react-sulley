@@ -50,7 +50,7 @@ const Acudiente = () => {
         <div className="acu-user">
           <div className="acu-avatar">
             {/* Si más adelante guardas foto en persona, usa persona.foto_url */}
-            <img src="/Imagen/user-placeholder.png" alt="Acudiente" />
+            <img src={persona.foto_url} alt="Acudiente" />
           </div>
           <div className="acu-username">Acudiente: {nombreAcudiente || '—'}</div>
         </div>

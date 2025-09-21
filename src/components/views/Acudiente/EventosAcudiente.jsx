@@ -16,7 +16,7 @@ const EventosAcudiente = () => {
       ) : (
         <ul className="events-list">
           {eventos.map((ev) => (
-            <li key={ev.id} className="event-item">
+            <li key={ev.id_evento} className="event-item">
               <div>
                 <strong>{ev.titulo}</strong>
                 <div className="muted">{new Date(ev.fecha_inicio).toLocaleString()}</div>
