@@ -43,6 +43,29 @@ const EstudianteDetalle = () => {
     });
     setPreviewOpen(true);
   };
+
+  const handleDownload = async (row) => {
+    try {
+      const token = localStorage.getItem('access');
+      const res = await fetch(row.download_url, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error(`Error ${res.status}`);
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = row.filename || 'entregable';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error(e);
+      alert('No se pudo descargar el archivo');
+    }
+  };
   return (
     <section className="acu-panel">
       <div className="acu-breadcrumb" style={{ marginBottom: 12 }}>
@@ -100,9 +123,7 @@ const EstudianteDetalle = () => {
                                   Ver
                                 </button>
                                 {/* Descargar (forzado) */}
-                                <a className="btn" href={row.download_url}>
-                                  Descargar
-                                </a>
+                                <button className="btn" onClick={() => handleDownload(row)}>Descargar </button>
                               </>
                             ) : (
                               <span className="muted">Sin archivo</span>

@@ -8,6 +8,16 @@ const FilePreview = ({ open, onClose, file }) => {
   if (!open) return null;
   const { url, mime, filename, downloadUrl } = file || {};
 
+const withApiBase = (u) => {
+  if (!u) return u;
+  return u.startsWith('/')
+  ? `${import.meta.env.VITE_API_BASE?.replace(/\/$/, '')}${u}`
+  : u;
+};
+
+// ...
+const src = withApiBase(url);
+
   return (
     <div className="fp-backdrop" onClick={onClose}>
       <div className="fp-modal" onClick={(e) => e.stopPropagation()}>
@@ -28,11 +38,9 @@ const FilePreview = ({ open, onClose, file }) => {
 
         <div className="fp-body">
           {isPreviewable(mime) && url ? (
-            mime.startsWith('image/') ? (
-              <img className="fp-image" src={url} alt={filename || 'archivo'} />
-            ) : (
-              <iframe className="fp-frame" src={url} title="vista-archivo" />
-            )
+            mime.startsWith('image/')
+              ? <img className="fp-image" src={src} alt={filename || 'archivo'} />
+              : <iframe className="fp-frame" src={src} title="vista-archivo" />
           ) : (
             <div className="fp-fallback">
               <p>Este tipo de archivo no tiene vista previa.</p>

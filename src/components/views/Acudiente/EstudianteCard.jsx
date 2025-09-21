@@ -17,8 +17,7 @@ const EstudianteCard = ({ estudiante, onUpdated }) => {
     correo_electronico,
     curso,
     foto_url,
-    acudiente_nombre,
-    edad,
+    fecha_nacimiento,
   } = estudiante || {};
 
   return (
@@ -35,9 +34,8 @@ const EstudianteCard = ({ estudiante, onUpdated }) => {
 
       <div className="est-info">
         <div><strong>Documento:</strong> {tipo_documento ?? '—'} {numero_documento ?? ''}</div>
-        <div><strong>Edad:</strong> {edad ?? '—'}</div>
+        <div><strong>Edad:</strong> {fecha_nacimiento ?? '—'}</div>
         <div><strong>Dirección:</strong> {direccion ?? '—'}</div>
-        <div><strong>Acudiente:</strong> {acudiente_nombre ?? '—'}</div>
         <div><strong>Teléfono:</strong> {telefono ?? '—'}</div>
         <div><strong>Correo:</strong> {correo_electronico ?? '—'}</div>
       </div>
