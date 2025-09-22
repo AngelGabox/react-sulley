@@ -4,8 +4,10 @@
   background: rgba(0, 0, 0, 0.788);
   display: flex;
   justify-content: center;
+  margin-top: 30px;
   align-items: center;
   z-index: 999;
+  overflow-y: auto;
 }
 .modal-close {
   position: absolute;

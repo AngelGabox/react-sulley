@@ -33,8 +33,7 @@ const Profe = () => {
     // console.log("selectedCPM", selectedCPM);
     
   // Tomamos el usuario actual (profesor) del store de Redux
-  const profe = useSelector((s) => s.user.user);
-
+  const profe = useSelector((s) => s.user.persona);
   // Llamada al endpoint para obtener los cursos del profesor
   // Usamos profe.id si está definido, o 2 como fallback durante el desarrollo
   const { data: cursosData } = useGetCourseByTeacherQuery(

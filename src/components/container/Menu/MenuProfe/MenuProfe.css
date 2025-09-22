@@ -6,10 +6,12 @@
     align-self: start;
     height: 100dvh; overflow: auto;
     /* width: 25%; */
-    background-color: #6ab9be;
-    padding: 20px;
+    background-color: var(--green-swamp);
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding: 20px 0;
     height: 100vh;
-    color: white;
+    color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -85,5 +87,6 @@
 }
 
 .sidebar .navigation .menu-profe li:hover {
-    background-color: #5b8a8b;
+    background-color: #6485a0;
+    /* color: #fff; */
 }

@@ -7,11 +7,11 @@
   /* blue */
   --light-blue: #94ddf5;
   --dark-blue: #101d38;
-  --blue: #142f69;
+  --blue-sea: #142f69;
   --blue: #29b9e9;
-  --blue-ocean: #00759c;
+  --blue-ocean: #036969;
 
-  --green-swamp: #255f4c;
+  --green-swamp: #43a886;
   --menu: #5ffad8;
   --warning: #ff421c;
   --bg-one: #dfe8e7;
@@ -29,7 +29,7 @@
   --danger: #b91c1c;
 }
 *, button{
-  box-sizing: content-box;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }

@@ -21,14 +21,14 @@ const AsignacionesTable = ({ onEdit }) => {
       <table>
         <thead>
           <tr>
-            <th style={{width: 80}}>ID</th>
+            <th style={{width: 30}}>ID</th>
             <th>Curso</th>
             <th>Profesor</th>
             <th>Materia</th>
-            <th style={{width: 160}}>Configurar</th>
+            <th style={{width:30}}>Configurar</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className='tb-body-asig'>
           {asignaciones.map(a => (
             <tr key={a.id}>
               <td>{a.id}</td>
@@ -36,13 +36,14 @@ const AsignacionesTable = ({ onEdit }) => {
               <td>{a.persona?.nombre} {a.persona?.apellido}</td>
               <td>{a.materia?.nombre}</td>
               <td className="row-actions">
-                <button className="btn-primary" onClick={() => onEdit(a)}>⚙ Configurar</button>
-                <button className="btn-danger" onClick={() => handleDelete(a.id)} disabled={deleting}>🗑 Eliminar</button>
+                <button className="btn-config-asig" onClick={() => onEdit(a)}>⚙</button>
+                <button className="btn-eliminar-asig" onClick={() => handleDelete(a.id)} disabled={deleting}>🗑</button>
               </td>
             </tr>
           ))}
+          
           {asignaciones.length === 0 && (
-            <tr><td colSpan="5" style={{textAlign:'center'}}>Sin asignaciones.</td></tr>
+            <tr><td colSpan="5" style={{textAlign:'center', fontSize:'2rem'}}>Sin asignaciones.</td></tr>
           )}
         </tbody>
       </table>

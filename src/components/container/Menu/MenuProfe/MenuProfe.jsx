@@ -13,7 +13,7 @@ const MenuProfe = ({setView}) => {
   
   const showUserProfile = () => {
     setView("perfil");
-    console.log("Usuario actual:", usuario);
+    // console.log("Usuario actual:", usuario);
   }
 
     const logout = () => {
@@ -27,7 +27,7 @@ const MenuProfe = ({setView}) => {
   return (
     <aside className="sidebar">
       <div className="profile">
-          <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Foto de perfil" className="profile-img"/>
+          <img src={usuario? usuario.foto : "https://randomuser.me/api/portraits/men/1.jpg"} alt="Foto de perfil" className="profile-img"/>
           <span>Profe Juan</span>
       </div>
       <div className="navigation">
