@@ -1,5 +1,5 @@
 //src/components/views/Home/Home.jsx
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./Home.css";
 import logo from "../../../assets/logo.png";
 import pelados from "../../../assets/pelados.png";
@@ -191,7 +191,7 @@ const Home = () => {
               date: "12 Oct 2025, 9:00 a.m.",
               place: "Auditorio Principal",
               description: "Muestras de proyectos y experimentos de los niños.",
-              image: "/Imagen/evento1.jpg",
+              image: pelados,
               link: "#",
             },
             {
