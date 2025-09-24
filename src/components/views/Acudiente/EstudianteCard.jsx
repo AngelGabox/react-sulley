@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from '../../container/Modal/Modal';
 import EditarEstudianteForm from './EditarEstudianteForm';
 
-const EstudianteCard = ({ estudiante, onUpdated }) => {
+const EstudianteCard = ({ estudiante, onUpdated, onVerActividades }) => {
   const navigate = useNavigate();
   const [openEdit, setOpenEdit] = useState(false);
 
@@ -53,9 +53,7 @@ const EstudianteCard = ({ estudiante, onUpdated }) => {
         <button
           type="button"
           className="btn-secondary"
-          onClick={() => navigate(`/acudiente/estudiante/${estudiante.id}`, {
-            state: { estudiante }
-          })}
+          onClick={() => onVerActividades(estudiante)}
           style={{ marginTop: 8 }}
         >
           Ver actividades

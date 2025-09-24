@@ -10,6 +10,7 @@ const MenuProfe = ({setView}) => {
 
   const claseActiva = useSelector(s => s.clase?.current?.status === 'running');
   const usuario = useSelector(state => state.user.user);
+  const persona = useSelector(state => state.user.persona);
   
   const showUserProfile = () => {
     setView("perfil");
@@ -27,7 +28,7 @@ const MenuProfe = ({setView}) => {
   return (
     <aside className="sidebar">
       <div className="profile">
-          <img src={usuario? usuario.foto : "https://randomuser.me/api/portraits/men/1.jpg"} alt="Foto de perfil" className="profile-img"/>
+          <img src={persona? persona?.foto_url : "https://randomuser.me/api/portraits/men/1.jpg"} alt="Foto de perfil" className="profile-img"/>
           <span>Profe Juan</span>
       </div>
       <div className="navigation">

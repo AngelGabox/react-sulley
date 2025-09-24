@@ -20,4 +20,7 @@ export const acudienteApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetMisEstudiantesQuery, useGetEventosProximosQuery } = acudienteApi;
+export const { 
+  useGetMisEstudiantesQuery, 
+  useGetEventosProximosQuery, 
+} = acudienteApi;
