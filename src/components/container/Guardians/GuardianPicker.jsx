@@ -72,9 +72,9 @@ const GuardianPicker = ({ studentId, onAssigned, onClose }) => {
         )}
       </div>
 
-      <button className="add-new" onClick={goCreateGuardian}>
+      {/* <button className="add-new" onClick={goCreateGuardian}>
         + Agregar nuevo Acudiente
-      </button>
+      </button> */}
     </div>
   );
 };

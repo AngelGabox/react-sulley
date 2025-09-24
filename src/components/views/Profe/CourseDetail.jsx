@@ -51,13 +51,6 @@ const CourseDetail = () => {
             <Activities></Activities>
           </div>
         );
-        case 'estudiantes':
-          return (
-            <div className="cd-panel">
-            <h3>Estudiantes</h3>
-            <p>Listado de estudiantes del curso (pendiente de implementar).</p>
-          </div>
-        );
         default:
           return null;
         }
@@ -85,7 +78,6 @@ const CourseDetail = () => {
 
       {/* Mini Navbar (tabs) */}
       <nav className="cd-tabs">
-        <TabBtn id="estudiantes">Estudiantes</TabBtn>
         <TabBtn id="asistencia">Asistencia</TabBtn>
         <TabBtn id="notas">Notas</TabBtn>
         <TabBtn id="actividades">Actividades</TabBtn>

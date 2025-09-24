@@ -147,7 +147,7 @@ const Profile = () => {
   if (!persona || !user) return <p>Cargando perfil…</p>;
 
   return (
-    <div className="perfil-wrapper">
+    <div className="perfil-wrapper-persona">
       <h2>Perfil</h2>
 
       {/* --- NUEVO: Bloque avatar arriba, igual estilo de tarjeta --- */}
@@ -171,9 +171,9 @@ const Profile = () => {
         </div>
 
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          <button type="button" onClick={handlePickAvatar} disabled={uploadingAvatar || deletingAvatar}>
+          {/* <button type="button" onClick={handlePickAvatar} disabled={uploadingAvatar || deletingAvatar}>
             {uploadingAvatar ? 'Subiendo…' : 'Cambiar foto'}
-          </button>
+          </button> */}
           {avatarUrl ? (
             <button
               type="button"

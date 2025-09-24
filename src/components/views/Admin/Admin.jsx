@@ -50,7 +50,7 @@ const Admin = () => {
 
   
 
-  const [view, setView] = useState('');
+  const [view, setView] = useState('estudiantes');
 
   const renderView = () => {
     switch (view) {

@@ -17,7 +17,7 @@ const PersonToolBar = ( {onAddClick} ) => {
         <input
           type="text"
           className="search-input"
-          placeholder="Buscar profe..."
+          placeholder="Buscar persona..."
           onChange={onSearchChangePerson}
           />
         <button className="search-button" type="button">
@@ -25,7 +25,7 @@ const PersonToolBar = ( {onAddClick} ) => {
         </button>
       </div>
       <button type="button" className="add-button" onClick={onAddClick}>
-        <i className="fas fa-plus-circle"></i> Agregar Profe
+        <i className="fas fa-plus-circle"></i> Agregar Persona
       </button>
     </div>
     )

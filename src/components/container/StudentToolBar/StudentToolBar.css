@@ -1,6 +1,7 @@
 .toolbar-row {
   display: flex;
   justify-content: space-between;
+  /* height: 60px; */
   align-items: center;
   padding: 10px 40px;
   gap: 1rem;
@@ -17,7 +18,7 @@
 
 .search-input {
   flex: 1;
-  height: 20px;
+  /* height: 20px; */
   padding: 10px;
   border: 1px solid #aaa;
   border-radius: 5px 0 0 5px;
@@ -27,7 +28,7 @@
 }
 
 .search-button {
-  height: 20px;
+  /* height: 20px; */
   padding: 10px 20px;
   margin: 0;
   background-color: #1a3258;
@@ -44,7 +45,7 @@
 }
 
 .add-button {
-  height: 20px;
+  /* height: 20px; */
   padding: 10px 20px;
   background-color: #28a745;
   color: white;

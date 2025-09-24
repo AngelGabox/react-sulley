@@ -2,7 +2,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './MenuAdmin.css'; // Importa el CSS
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../../../../features/user/userSlice'
 
@@ -10,6 +10,9 @@ const MenuAdmin = ({ setView, currentView }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const persona = useSelector(state => state.user.persona) || {};
+  console.log(persona);
+  
   const logout = () => {
     // Limpiar las credenciales
     dispatch(logoutUser());
@@ -20,7 +23,7 @@ const MenuAdmin = ({ setView, currentView }) => {
 
   return (
     <aside className="admin-menu">
-      <h3>Menú</h3>
+      <h3>Admin: {persona.nombre || 'Administrador'}</h3>
       <ul>
 
         <li onClick={() => setView('estudiantes')} className={currentView === 'estudiantes' ? 'active' : ''}>
