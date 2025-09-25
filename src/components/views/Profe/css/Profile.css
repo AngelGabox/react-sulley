@@ -28,6 +28,16 @@
   box-shadow: 0 2px 8px rgba(0,0,0,.05);
   padding: 18px 20px;
 }
+.perfil-card button{
+    background: #245847;
+  border: 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #fff;
+  margin-right: 12px;
+}
 
 .perfil-dl h3{
   margin: 0 0 10px;

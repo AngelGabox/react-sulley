@@ -171,10 +171,10 @@ const Profile = () => {
         </div>
 
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          {/* <button type="button" onClick={handlePickAvatar} disabled={uploadingAvatar || deletingAvatar}>
+          <button type="button-perfil" onClick={handlePickAvatar} disabled={uploadingAvatar || deletingAvatar}>
             {uploadingAvatar ? 'Subiendo…' : 'Cambiar foto'}
-          </button> */}
-          {avatarUrl ? (
+          </button>
+          {/* {avatarUrl ? (
             <button
               type="button"
               className="secondary"
@@ -183,7 +183,7 @@ const Profile = () => {
             >
               {deletingAvatar ? 'Eliminando…' : 'Quitar foto'}
             </button>
-          ) : null}
+          ) : null} */}
           <input
             ref={fileInputRef}
             type="file"

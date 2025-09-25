@@ -4,7 +4,7 @@ import "./Home.css";
 import logo from "../../../assets/logo.png";
 import pelados from "../../../assets/pelados.png";
 import pelados2 from "../../../assets/pelados2.png";
-
+import evento1 from '../../../assets/evento01.jpeg'
 const Home = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -230,7 +230,7 @@ const Home = () => {
             <li className="ev-slide" key={i}>
               <article className="ev-card">
                 <div className="ev-card-media">
-                  {ev.image ? <img src={ev.image} alt="" aria-hidden="true" /> : <div className="ev-card-fallback" />}
+                  {ev.image ? <img src={evento1} alt="" aria-hidden="true" /> : <div className="ev-card-fallback" />}
                 </div>
                 <div className="ev-card-body">
                   <h3 className="ev-title">{ev.title}</h3>
